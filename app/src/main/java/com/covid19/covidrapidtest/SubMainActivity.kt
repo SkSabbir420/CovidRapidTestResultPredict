@@ -1,5 +1,6 @@
 package com.covid19.covidrapidtest
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -98,12 +100,15 @@ fun MainScreen(navController: NavController) {
                             .background(Purple40)
                     ) {
                         Column {
+                            val context = LocalContext.current
                             IconButton(
                                 modifier = Modifier
                                     .height(64.dp)
                                     .width(64.dp),
                                 onClick = {
-                                    navController.navigate("CameraActivity")
+                                    //navController.navigate("CameraActivity")
+                                    context.startActivity(Intent(context,CameraActivity::class.java))
+
                                 }) {
                                 Icon(
                                     painter = painterResource(
