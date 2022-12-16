@@ -85,7 +85,7 @@ class CameraActivity : Activity() {
 
         //Main code 2.
 
-        viewBinding.showResult.setOnClickListener {
+        viewBinding.submitSample.setOnClickListener {
 
             if (imageUri ==null){
                 Toast.makeText(this, "Please add your photo", Toast.LENGTH_LONG).show()
@@ -133,7 +133,7 @@ class CameraActivity : Activity() {
             val result = CropImage.getActivityResult(data)
             imageUri = result.uri
 
-            //image_post.setImageURI(imageUri)
+            viewBinding.imageShow.setImageURI(imageUri)
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
 //                image_post.setImageBitmap(bitmap)
@@ -177,7 +177,8 @@ class CameraActivity : Activity() {
 //                    }
                     //classitext!!.text = key
                     classify = key
-                    Toast.makeText(this, key + "", Toast.LENGTH_SHORT).show()
+                    viewBinding.resultShow.setText("Final Result: $key")
+                    //Toast.makeText(this, key + "", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: Exception) {
