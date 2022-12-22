@@ -42,7 +42,9 @@ fun HomeScreen(navController : NavController) {
 
                 },
                 actions = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.ActionButtonScreen.route)
+                    }) {
                         //Icon(imageVector = R.drawable.ic_baseline_account_tree_24, contentDescription ="" )
                         Image(
                             painter = painterResource(
@@ -99,7 +101,9 @@ fun HomeScreen(navController : NavController) {
                                     .width(64.dp),
                                 onClick = {
                                     //navController.navigate("CameraActivity")
-                                    navController.navigate(Screen.CameraActivity.route)
+                                   // navController.navigate(Screen.CameraActivity.route)
+                                    //navController.navigate(Screen.QRCodeReaderActivity.route)
+                                    navController.navigate(Screen.LotNumberScreen.route)
                                     //context.startActivity(Intent(context,CameraActivity::class.java))
 
                                 }) {
@@ -122,7 +126,7 @@ fun HomeScreen(navController : NavController) {
                                 .height(64.dp)
                                 .width(64.dp),
                                 onClick = {
-                                    navController.navigate(Screen.CameraActivity.route)
+                                    navController.navigate(Screen.OnGoingTest.route)
                                 }) {
                                 Icon(
                                     painter = painterResource(
