@@ -69,7 +69,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             SymptomScreen(navController)
         }
         composable(route = Screen.ActionButtonScreen.route) {
-            ActionButtonScreen()
+            ActionButtonScreen(navController)
         }
 
 

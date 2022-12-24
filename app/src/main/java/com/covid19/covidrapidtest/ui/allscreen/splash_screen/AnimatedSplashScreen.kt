@@ -48,7 +48,7 @@ fun AnimatedSplashScreen(navController: NavHostController) {
 fun Splash(alpha: Float) {
     Box(
         modifier = Modifier
-            .background(if (isSystemInDarkTheme()) Color.Black else Purple40)
+            .background(if (isSystemInDarkTheme()) Color.Black else Color.White)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
@@ -66,7 +66,7 @@ fun Splash(alpha: Float) {
             ),
             contentDescription = "Image Logo",
             modifier = Modifier
-                .size(120.dp)
+                .height(500.dp)
                 .alpha(alpha = alpha)
         )
     }
