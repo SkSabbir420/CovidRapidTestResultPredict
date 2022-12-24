@@ -3,15 +3,24 @@ package com.covid19.covidrapidtest.ui.allscreen.ongoingtest
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.covid19.covidrapidtest.R
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
+import com.itextpdf.text.Document
+import com.itextpdf.text.Paragraph
+import com.itextpdf.text.pdf.PdfWriter
 //import com.theartofdev.edmodo.cropper.CropImage
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.FileUtil
@@ -26,8 +35,10 @@ import org.tensorflow.lite.support.label.TensorLabel
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ResultActivity : AppCompatActivity() {
@@ -46,6 +57,7 @@ class ResultActivity : AppCompatActivity() {
     private var labels: List<String>? = null
     private var ourMember = false
     private var verifiedUser = false
+    private lateinit var qrCodeShow:ImageView
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -63,7 +75,15 @@ class ResultActivity : AppCompatActivity() {
         }
 
         //val imageAdd = findViewById<Button>(R.id.image_post)
-        val showResult = findViewById<Button>(R.id.showResult)
+        val showResult= findViewById<TextView>(R.id.tv_resultShow)
+        val cratePdf= findViewById<Button>(R.id.btn_pdf_crate)
+        qrCodeShow= findViewById<ImageView>(R.id.ivQRCode)
+        cratePdf.setOnClickListener {
+            if (classify != null){
+                savePDF(classify!!)
+            }
+        }
+
 
 //        save_new_post_btn.setOnClickListener {
 //            uploadImage()
@@ -131,8 +151,8 @@ class ResultActivity : AppCompatActivity() {
 //                classify="The image classified is Covid Positive Confident:$result "
 //                Toast.makeText(this, "The image classified is Covid Negetive.\n Confident:$result ", Toast.LENGTH_SHORT).show()
 //            }
+        showResult.text = showresult()
 
-            showresult()
        // }
 
     } //One create is end.
@@ -176,7 +196,7 @@ class ResultActivity : AppCompatActivity() {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startoffset, declaredLength)
     }
 
-    private fun showresult() {
+    private fun showresult():String {
         try {
             labels = FileUtil.loadLabels(this, "labelsC.txt")
             //labels = FileUtil.loadLabels(this, "label.txt")
@@ -196,6 +216,7 @@ class ResultActivity : AppCompatActivity() {
 //                    }
                     //classitext!!.text = key
                     classify = key
+                    createQrCode(key)
                     Toast.makeText(this, key + "", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -204,6 +225,7 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "$e", Toast.LENGTH_SHORT).show()
             Log.d("MainActiviy",e.toString())
         }
+        return classify!!
     }
 
     private fun loadImage(bitmap: Bitmap?): TensorImage {
@@ -219,6 +241,43 @@ class ResultActivity : AppCompatActivity() {
             .add(preprocessNormalizeOp)
             .build()
         return imageProcessor.process(inputImageBuffer)
+    }
+
+    private fun createQrCode(data:String){
+        val writer = QRCodeWriter()
+        try {
+            val bitMatrix = writer.encode(data, BarcodeFormat.QR_CODE,512,512)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bmp = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565)
+            for(x in 0 until width){
+                for (y in 0 until height){
+                    bmp.setPixel(x,y,if(bitMatrix[x,y]) Color.BLACK else Color.WHITE)
+                }
+            }
+            qrCodeShow.setImageBitmap(bmp)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+    }
+
+    private fun savePDF(data:String) {
+        val mDoc = Document()
+        val mFileName = SimpleDateFormat("yyyMMdd_HHmmss", Locale.getDefault())
+            .format(System.currentTimeMillis())
+
+        val mFilePath = Environment.getExternalStorageDirectory().toString() + "/"  + mFileName + ".pdf"
+
+        try {
+            PdfWriter.getInstance(mDoc, FileOutputStream(mFilePath))
+            mDoc.open()
+            mDoc.addAuthor("Sabbir")
+            mDoc.add(Paragraph(data))
+            mDoc.close()
+            Toast.makeText(this,"$mFilePath.pdf\n is create to \n$mFilePath",Toast.LENGTH_SHORT).show()
+        }catch (e:Exception){
+            Toast.makeText(this,"" + e.toString(),Toast.LENGTH_SHORT).show()
+        }
     }
 
 
