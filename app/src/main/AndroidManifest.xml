@@ -22,14 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidRapidTest"
         tools:targetApi="31" >
-        <activity
-            android:name="com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestCaptureActivity"
-            android:exported="false"
-            android:theme="@style/Base.Theme.AppCompat" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <activity
             android:name=".MainActivity"
@@ -45,6 +37,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.allscreen.ongoingtest.ResultActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.AppCompat">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.allscreen.ongoingtest.TestCaptureActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.AppCompat">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".CameraActivity"
