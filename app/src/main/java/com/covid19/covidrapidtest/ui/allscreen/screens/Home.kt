@@ -3,18 +3,19 @@ package com.covid19.covidrapidtest.ui.allscreen.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.Purple40
@@ -58,19 +59,37 @@ fun HomeScreen(navController : NavController) {
                 elevation = 0.dp
             )
         },
+
         content = {
+
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
+                Spacer(modifier = Modifier.height(50.dp))
+                Column(
                     modifier = Modifier
-                        .fillMaxHeight(.5f)
-                        .fillMaxWidth(.5f)
+                        .fillMaxHeight(.64f)
+                        .fillMaxWidth(.75f)
+                        .clip(RoundedCornerShape(32.dp))
                         .background(Purple40),
-                    contentAlignment = Alignment.Center,
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Text(
+                        modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        text = "RapidFor^TM SARS-CoV-2",
+
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        text = "Rapid Antigen Test",
+
+                        )
                     Image(
                         painter = painterResource(
                             id = R.drawable.slider_picture
@@ -81,24 +100,32 @@ fun HomeScreen(navController : NavController) {
                             .fillMaxWidth(.2f)
                     )
                 }
+
+
                 Row (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(.3f),
+                        .fillMaxHeight(.8f),
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.Bottom
+                    verticalAlignment = Alignment.CenterVertically
                 ){
                     Box(
                         modifier = Modifier
                             .padding(24.dp)
+                            .clip(RoundedCornerShape(12.dp))
                             .background(Purple40)
                     ) {
-                        Column {
+                        Column(
+                            modifier = Modifier.padding(8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ){
                             val context = LocalContext.current
                             IconButton(
                                 modifier = Modifier
-                                    .height(64.dp)
-                                    .width(64.dp),
+                                    .height(80.dp)
+                                    .width(80.dp)
+                                ,
                                 onClick = {
                                     //navController.navigate("CameraActivity")
                                    // navController.navigate(Screen.CameraActivity.route)
@@ -108,33 +135,49 @@ fun HomeScreen(navController : NavController) {
 
                                 }) {
                                 Icon(
+                                    tint = Color.White,
                                     painter = painterResource(
                                         id = R.drawable.ic_baseline_qr_code_scanner_24
                                     ),
                                     contentDescription = null,
                                 )
+                                
                             }
+                            Text(
+                                color = Color.White,
+                                text = "Perform Test"
+                            )
                         }
                     }
 
                     Box(modifier = Modifier
                         .padding(24.dp)
+                        .clip(RoundedCornerShape(12.dp))
                         .background(Purple40)
                     ){
-                        Column {
+                        Column (
+                            modifier = Modifier.padding(8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ){
                             IconButton(modifier = Modifier
-                                .height(64.dp)
-                                .width(64.dp),
+                                .height(80.dp)
+                                .width(80.dp),
                                 onClick = {
                                     navController.navigate(Screen.OnGoingTest.route)
                                 }) {
                                 Icon(
+                                    tint = Color.White,
                                     painter = painterResource(
                                         id = R.drawable.ic_baseline_list_alt_24
                                     ),
                                     contentDescription = null,
                                 )
                             }
+                            Text(
+                                color = Color.White,
+                                text = "Ongoing Tests"
+                            )
                         }
                     }
 
@@ -149,8 +192,8 @@ fun HomeScreen(navController : NavController) {
     )
 }
 
-//@Composable
-//@Preview
-//fun HomeScreenPreview() {
-//    HomeScreen()
-//}
+@Composable
+@Preview
+fun HomeScreenPreview() {
+    HomeScreen(NavController(LocalContext.current))
+}
