@@ -1,10 +1,12 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -12,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -22,6 +26,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.navigation.Screen
+import com.covid19.covidrapidtest.ui.theme.AppColor
 
 
 data class HorizontalPagerContent(
@@ -32,52 +37,52 @@ fun getList(): List<HorizontalPagerContent> {
     return listOf(
         HorizontalPagerContent(
             "Step 1",
-            R.drawable.first,
+            R.drawable.step_1,
             "Please read instructions for use (IFU) carefully before the test."
         ),
         HorizontalPagerContent(
             "Step 2",
-            R.drawable.first,
+            R.drawable.step_2,
             "Open the extraction buffer tube and place it into the holder."
         ),
         HorizontalPagerContent(
             "Step 3",
-            R.drawable.first,
+            R.drawable.step_3,
             "Remove the swab from the swab packaging. Caution: the soft tip of the swab should not come into contact with hands or objects."
         ),
         HorizontalPagerContent(
             "Step 4",
-            R.drawable.first,
+            R.drawable.step_4,
             "Put your swap into the tube and rotate the swab 10 times to elute the sample into the buffer."
         ),
         HorizontalPagerContent(
             "Step 5",
-            R.drawable.first,
+            R.drawable.step_5,
             "Break off the upper part of the swab"
         ),
         HorizontalPagerContent(
             "Step 6",
-            R.drawable.first,
+            R.drawable.step_6,
             "Insert the swab 2.5 cm into one nostril and rotate it 6 times."
         ),
         HorizontalPagerContent(
             "Step 7",
-            R.drawable.first,
+            R.drawable.step_7,
             "Close the buffer tube, and gently flip and mix."
         ),
         HorizontalPagerContent(
             "Step 8",
-            R.drawable.first,
+            R.drawable.step_8,
             "Break off the tip of the cap at the selected point."
         ),
         HorizontalPagerContent(
             "Step 9",
-            R.drawable.first,
+            R.drawable.step_9,
             "Open the aluminum package and place the cassette as denoted"
         ),
         HorizontalPagerContent(
             "Step 10",
-            R.drawable.first,
+            R.drawable.step_10,
             "Add 3 drops of sample-extraction buffer mixture to the sample well and read after 15 mins."
         ),
     )
@@ -97,15 +102,11 @@ fun StepScreen(navController: NavHostController) {
     val scope = rememberCoroutineScope()
 
     Column(
+        modifier = Modifier.fillMaxSize().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(.75f)
-        ) {
             HorizontalPager(
                 state = pagerState,
                 verticalAlignment = Alignment.CenterVertically,
@@ -116,88 +117,98 @@ fun StepScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.image_logo
+                        ),
+                        contentDescription = "Image Logo",
+                    )
+                    Spacer(modifier = Modifier.height(64.dp))
+                    AsyncImage(
+                        model = list[currentPage].res,
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxHeight(.5f)
+                            .fillMaxWidth()
+                    )
+                    HorizontalPagerIndicator(
+                        pagerState = pagerState, modifier = Modifier
+                            .padding(vertical = 26.dp),
+                        activeColor = AppColor
+                    )
                     Text(
                         text = list[currentPage].title,
-                        style = MaterialTheme.typography.h4,
+                        style = MaterialTheme.typography.h5,
                         color = Color.Black,
                         modifier = Modifier.padding(horizontal = 12.dp)
                     )
-                    AsyncImage(
-                        model = list[currentPage].res,
-                        contentDescription = null, modifier = Modifier
-                            .height(380.dp)
-                            .width(300.dp)
-                    )
-
                     Text(
                         text = list[currentPage].description,
                         style = MaterialTheme.typography.body1,
                         color = Color.Gray,
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .fillMaxWidth(.6f)
-                            .align(
-                                Alignment.CenterHorizontally
-                            )
+                        textAlign = TextAlign.Center
                     )
                 }
-            }
-        }
+                Row(
+                    modifier = Modifier.fillMaxHeight()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
 
-        HorizontalPagerIndicator(
-            pagerState = pagerState, modifier = Modifier
-                .padding(vertical = 26.dp)
-        )
+                ) {
+                    if (isPrevVisible.value) {
+                        OutlinedButton(
+                            modifier = Modifier.weight(1F)
+                                .height(65.dp).padding(8.dp),
+                            onClick = {
+                                scope.launch {
+                                    //pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                                    pagerState.scrollToPage(pagerState.currentPage - 1)
+                                }
+                            }
+                        ) {
+                            androidx.compose.material3.Text(text = "Back")
+                        }
+                    }else{
+                        OutlinedButton(
+                            modifier = Modifier.weight(1F)
+                                .height(65.dp).padding(8.dp),
+                            onClick = { navController.popBackStack() }
+                        ) {
+                            androidx.compose.material3.Text(text = "Back")
+                        }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .fillMaxWidth()
-        ) {
-            if (isPrevVisible.value) {
-                Button(onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
                     }
-                }) {
-                    Text(text = "Prev")
-                }
-            }
-            if (isPrevVisible.value && isNextVisible.value) {
-                Box(modifier = Modifier.fillMaxWidth(.2f))
-            }
 
-            if (isNextVisible.value) {
-                Button(onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    if (isNextVisible.value) {
+                        androidx.compose.material3.Button(
+                            modifier = Modifier.weight(1F)
+                                .height(65.dp).padding(8.dp),
+                            onClick = {
+                                scope.launch {
+                                    //pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                                    pagerState.scrollToPage(pagerState.currentPage + 1)
+                                }
+                            }) {
+                            androidx.compose.material3.Text(text = "Continue")
+                        }
                     }
-                }) {
-                    Text(text = "Next")
-                }
-            }
-
-            if (isNextVisible.value) {
-                Button(onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    if (isFinishVisible.value) {
+                        androidx.compose.material3.Button(
+                            modifier = Modifier.weight(1F)
+                                .height(65.dp).padding(8.dp),
+                            onClick = {
+                                navController.navigate(Screen.TimerScreen.route)
+                            }) {
+                            androidx.compose.material3.Text(text = "Finish")
+                        }
                     }
-                }) {
-                    Text(text = "Next")
-                }
-            }
-            if (isFinishVisible.value) {
-                Button(onClick = {
-                    navController.navigate(Screen.TimerScreen.route)
-                }) {
-                    Text(text = "Finish")
-                }
-            }
 
-        }
+
+                }
+            }
 
     }
 }
+
+
+

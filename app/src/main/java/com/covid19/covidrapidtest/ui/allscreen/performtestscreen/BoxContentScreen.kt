@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,26 +33,43 @@ fun BoxContentScreen(navController: NavHostController) {
             ),
             contentDescription = "Image Logo",
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(64.dp))
         Text(text = "Box Content",color = Purple40, fontSize = 24.sp)
-        Text(text = "Your test box should include ingredients displayed below")
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Your test box should include ingredients displayed below",
+        textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.height(8.dp))
         Image(
+            modifier = Modifier.fillMaxHeight(.5f).
+            fillMaxWidth(),
             painter = painterResource(
-                id = R.drawable.package_picture
+                id = R.drawable.box_content
             ),
             contentDescription = null,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Text(text = "Please make sure you have all the materials before starting the test.",
-            fontSize = 12.sp, modifier = Modifier.align(Alignment.CenterHorizontally))
-        Row(modifier = Modifier.fillMaxWidth()) {
-            OutlinedButton(onClick = { /*TODO*/ }) {
+            fontSize = 14.sp, textAlign = TextAlign.Center)
+        Row(
+            modifier = Modifier.fillMaxHeight()
+                .padding(16.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.Center
+
+        ) {
+            OutlinedButton(
+                modifier = Modifier.weight(1F)
+                    .height(65.dp).padding(8.dp),
+                onClick = { navController.popBackStack() }
+            ) {
                 Text(text = "Back")
             }
-            Button(onClick = {
-                navController.navigate(Screen.StepScreen.route)
-            }) {
+            Button(
+                modifier = Modifier.weight(1F)
+                    .height(65.dp).padding(8.dp),
+                onClick = {
+                    navController.navigate(Screen.StepScreen.route)
+                }) {
                 Text(text = "Continue")
             }
 
