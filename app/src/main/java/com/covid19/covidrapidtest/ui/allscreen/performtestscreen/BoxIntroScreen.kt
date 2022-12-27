@@ -3,12 +3,16 @@ package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,9 +36,10 @@ fun BoxIntroScreen(navController: NavHostController) {
             ),
             contentDescription = "Image Logo",
         )
-        Spacer(modifier = Modifier.height(32.dp))
-        Text(text = "You are now about to start the process.")
-        Text(text = "The test you entered is:")
+        Spacer(modifier = Modifier.height(64.dp))
+        Text(text = "You are now about to start the process.\nThe test you entered is:",
+        textAlign = TextAlign.Center,
+        color = Color.Gray)
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "RapidFor^TM SARS-CoV-2", color = Purple40, fontSize = 24.sp)
         Text(text = "Rapid Antigen Test", color = Purple40, fontSize = 24.sp)
@@ -46,13 +51,31 @@ fun BoxIntroScreen(navController: NavHostController) {
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "If your box belongs to a different kind of test please go back and enter the lot again",
-            fontSize = 12.sp, modifier = Modifier.align(Alignment.CenterHorizontally))
-        Row(modifier = Modifier.fillMaxWidth()) {
-            OutlinedButton(onClick = { /*TODO*/ }) {
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = "If your box belongs to a different kind of test please go back and enter the lot again",
+            fontSize = 12.sp,
+            textAlign = TextAlign.Center,
+            color = Color.Gray
+        )
+        Row(
+            modifier = Modifier.fillMaxHeight()
+                .padding(16.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.Center
+
+        ) {
+            OutlinedButton(
+                modifier = Modifier.weight(1F)
+                    .height(65.dp).padding(8.dp),
+                onClick = { navController.popBackStack() }
+            ) {
                 Text(text = "Back")
             }
-            Button(onClick = {
+            Button(
+                modifier = Modifier.weight(1F)
+                    .height(65.dp).padding(8.dp),
+                onClick = {
                 navController.navigate(Screen.SymptomScreen.route)
             }) {
                 Text(text = "Continue")
@@ -67,5 +90,6 @@ fun BoxIntroScreen(navController: NavHostController) {
 @Composable
 fun DefaultPreviewBoxIntroScreen() {
     CovidRapidTestTheme {
+        BoxIntroScreen(navController = NavHostController(LocalContext.current))
     }
 }
