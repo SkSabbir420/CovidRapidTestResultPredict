@@ -90,7 +90,8 @@ fun LotNumberScreen(navController: NavController){
                 colors = TextFieldDefaults
                     .outlinedTextFieldColors(
                     focusedBorderColor = AppColor,
-                    unfocusedBorderColor = AppColor
+                    unfocusedBorderColor = AppColor,
+                        cursorColor = AppColor
                     ),
                 modifier = Modifier.background(Color.White),
                 value = text,

@@ -45,6 +45,8 @@ fun BoxIntroScreen(navController: NavHostController) {
         Text(text = "Rapid Antigen Test", color = Purple40, fontSize = 24.sp)
         Spacer(modifier = Modifier.height(8.dp))
         Image(
+            modifier = Modifier.fillMaxWidth().
+            fillMaxHeight(.5f),
             painter = painterResource(
                 id = R.drawable.package_picture
             ),
@@ -54,7 +56,7 @@ fun BoxIntroScreen(navController: NavHostController) {
         Text(
             modifier = Modifier.padding(16.dp),
             text = "If your box belongs to a different kind of test please go back and enter the lot again",
-            fontSize = 12.sp,
+            fontSize = 14.sp,
             textAlign = TextAlign.Center,
             color = Color.Gray
         )

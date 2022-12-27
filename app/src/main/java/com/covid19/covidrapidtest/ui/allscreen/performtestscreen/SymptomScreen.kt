@@ -348,7 +348,7 @@ fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier)
             value = selectedText,
             onValueChange = { selectedText = it },
             modifier = Modifier
-                .height(50.dp)
+                .height(60.dp)
                 .onGloballyPositioned { coordinates ->
                     //This value is used to assign to the DropDown the same width
                     textfieldSize = coordinates.size.toSize()

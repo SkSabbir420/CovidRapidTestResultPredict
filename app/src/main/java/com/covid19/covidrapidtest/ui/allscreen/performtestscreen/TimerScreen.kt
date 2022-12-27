@@ -1,5 +1,42 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.view.CountDownView
+import com.covid19.covidrapidtest.ui.theme.AppColor
+
+@Composable
+fun TimerScreen(navController: NavHostController) {
+    Column(
+        modifier = Modifier
+            .background(AppColor)
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        IconButton(onClick = {
+            navController.popBackStack()
+        }) {
+            Icon(imageVector = Icons.Filled.Close,
+                contentDescription = null,
+                tint = Color.White)
+        }
+        CountDownView()
+    }
+
+}
+
+/*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,9 +60,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -146,4 +181,4 @@ fun Timer(
             )
         }
     }
-}
+} */

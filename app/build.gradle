@@ -137,4 +137,19 @@ dependencies {
     //pdf Granarator
     implementation 'com.itextpdf:itextg:5.5.10'
 
+
+    //life cycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+
+    //runtime liveDate
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
+    //viewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha02"
+
+    //konfetti
+    implementation 'nl.dionsegijn:konfetti:1.2.6'
+
+    //view binding
+    implementation "androidx.compose.ui:ui-viewbinding:$compose_version"
 }

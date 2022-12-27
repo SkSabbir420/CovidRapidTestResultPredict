@@ -35,17 +35,21 @@ fun WashHandScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(64.dp))
         Image(
+            modifier = Modifier
+                .fillMaxHeight(.5f)
+                .fillMaxWidth()
+            ,
             painter = painterResource(
-                id = R.drawable.package_picture
+                id = R.drawable.hand_wash
             ),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(32.dp))
         Text(text = "Wash your hands now",
-            fontSize = 24.sp, modifier = Modifier.align(Alignment.CenterHorizontally))
+            fontSize = 22.sp, modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.height(24.dp))
         Text(text = "You are about to enter to the test process.\nPlease make sure you wash your hand and have your test kit ready with you.",
-            fontSize = 18.sp, textAlign = TextAlign.Center)
+            fontSize = 14.sp, textAlign = TextAlign.Center)
 
         Row(
             modifier = Modifier.fillMaxHeight()
@@ -65,7 +69,7 @@ fun WashHandScreen(navController: NavHostController) {
                 modifier = Modifier.weight(1F)
                     .height(65.dp).padding(8.dp),
                 onClick = {
-                    navController.navigate(Screen.SymptomScreen.route)
+                    navController.navigate(Screen.BoxContentScreen.route)
                 }) {
                 Text(text = "Continue")
             }
