@@ -26,10 +26,10 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             HomeScreen(navController)
         }
         composable(route = BottomBarScreen.List.route) {
-            ListScreen()
+            ListScreen(navController)
         }
         composable(route = Screen.OnGoingTest.route) {
-            OnGoingTest()
+            OnGoingTest(navController)
         }
 //        composable( route= "CameraActivity"){
 //            //CameraActivity(navController = navController)

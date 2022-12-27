@@ -36,7 +36,7 @@ fun SetupNavGraph(navController: NavHostController,context:Context) {
         }
 
         composable(route = Screen.OnGoingTest.route) {
-            OnGoingTest()
+            OnGoingTest(navController)
         }
 //        composable(route = Screen.ActionButtonScreen.route) {
 //            ActionButtonScreen()

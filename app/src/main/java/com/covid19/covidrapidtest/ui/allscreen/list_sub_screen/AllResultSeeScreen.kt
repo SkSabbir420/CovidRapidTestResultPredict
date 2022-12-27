@@ -1,14 +1,16 @@
-package com.covid19.covidrapidtest.ui.allscreen.ongoingtest
+package com.covid19.covidrapidtest.ui.allscreen.list_sub_screen
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 
 @Composable
-fun OngoingTestScreen(){
+fun AllResultSeeScreen(){
 //    Column(
 //        modifier = Modifier.fillMaxSize(),
 //        verticalArrangement = Arrangement.Center,
@@ -20,10 +22,6 @@ fun OngoingTestScreen(){
         modifier = Modifier.fillMaxSize(),
     ) {
         Spacer(modifier = Modifier.height(48.dp))
-        TestList()
-        TestList()
-        TestList()
-        TestList()
-        TestList()
+        TestListSee()
     }
 }

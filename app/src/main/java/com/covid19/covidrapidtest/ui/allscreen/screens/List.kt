@@ -13,10 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.AllResultSeeScreen
+import com.covid19.covidrapidtest.ui.navigation.Screen
 
 @Composable
-fun ListScreen() {
+fun ListScreen(navController:NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -36,7 +39,9 @@ fun ListScreen() {
 
                 },
                 actions = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.ActionButtonScreen.route)
+                    }) {
                         //Icon(imageVector = R.drawable.ic_baseline_account_tree_24, contentDescription ="" )
                         Image(
                             painter = painterResource(
@@ -51,13 +56,7 @@ fun ListScreen() {
             )
         },
         content = {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "List Screen")
-            }
+            AllResultSeeScreen()
         }
     )
 }
@@ -65,5 +64,5 @@ fun ListScreen() {
 @Composable
 @Preview
 fun ProfileScreenPreview() {
-    ListScreen()
+    //ListScreen()
 }

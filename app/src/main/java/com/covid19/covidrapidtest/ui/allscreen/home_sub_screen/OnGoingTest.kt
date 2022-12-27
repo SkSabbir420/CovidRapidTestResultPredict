@@ -14,14 +14,16 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.Default
+import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 
 @Composable
-fun OnGoingTest(){
+fun OnGoingTest(navController: NavController){
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -38,12 +40,17 @@ fun OnGoingTest(){
                             ),
                             contentDescription = "Image Logo",
                         )
-                        Text(text = "Ongoing tests")
+                        Text(
+                            text = "Ongoing tests",
+                        fontSize = 14.sp
+                        )
                     }
 
                 },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Filled.Close,
                             contentDescription =""
@@ -67,6 +74,6 @@ fun OnGoingTest(){
 @Composable
 fun DefaultPreviewOnGoingTest(){
     CovidRapidTestTheme {
-        OnGoingTest()
+        //OnGoingTest()
     }
 }
