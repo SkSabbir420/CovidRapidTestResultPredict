@@ -33,14 +33,14 @@ fun TestListSee(){
             .fillMaxWidth()
             .padding(20.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(AppColor),
+            .background(Color.LightGray),
 
         verticalAlignment = Alignment.CenterVertically
 
     ) {
         val context = LocalContext.current
-        Text(text = "Name Test", modifier = Modifier.padding(16.dp), color = Color.White)
-        Text(text = "Date", modifier = Modifier.padding(16.dp), color = Color.White)
+        Text(text = "Name Test", modifier = Modifier.padding(16.dp), color = AppColor)
+        Text(text = "Date", modifier = Modifier.padding(16.dp), color = AppColor)
         Spacer(modifier = Modifier.weight(1.0f))
         Button(colors = ButtonDefaults.buttonColors(
             containerColor = Green
@@ -53,7 +53,7 @@ fun TestListSee(){
             Text(text = "review", color = Color.White)
         }
         Icon(
-            tint = Color.White,
+            tint = Color.Black,
             modifier = Modifier.padding(16.dp),
             imageVector = Icons.Outlined.Delete,
             contentDescription =""
@@ -64,5 +64,5 @@ fun TestListSee(){
 @Preview
 @Composable
 fun PreviewTestList(){
-    //TestList()
+    TestListSee()
 }
