@@ -15,6 +15,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.FragmentPhotoBinding
@@ -34,7 +35,7 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
 
 
     //@BindView(R.id.preview_layout)
-    var previewLayout: LinearLayout? = null
+    var previewLayout: ConstraintLayout? = null
 
     //@BindView(R.id.border_camera)
     var borderCamera: View? = null

@@ -41,7 +41,7 @@
         <activity
             android:name=".ui.allscreen.ongoingtest.ResultActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.AppCompat">
+            android:theme="@style/Theme.CovidRapidTest">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -49,7 +49,7 @@
         <activity
             android:name=".ui.allscreen.ongoingtest.TestCaptureActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.AppCompat">
+            android:theme="@style/Theme.CovidRapidTest">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -63,11 +63,11 @@
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Theme.CovidRapidTest" />
         <activity
             android:name=".QRCodeReaderActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.AppCompat" >
+            android:theme="@style/Theme.CovidRapidTest" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -46,14 +46,14 @@ class ImageFragment : Fragment() {
         //ButterKnife.bind(this, view)
         //check if bitmap exist, set to ImageView
         val imageView = view.findViewById<ImageView>(R.id.res_photo)
-        val imagePhotoSize = view.findViewById<TextView>(R.id.res_photo_size)
+        //val imagePhotoSize = view.findViewById<TextView>(R.id.res_photo_size)
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap)
             val info = """
                 image with:${bitmap!!.width}
                 image height:${bitmap!!.height}
                 """.trimIndent()
-            imagePhotoSize.text = info
+            //imagePhotoSize.text = info
 
         }
         val goToResultActivity = view.findViewById<Button>(R.id.btn_go_result_activity)

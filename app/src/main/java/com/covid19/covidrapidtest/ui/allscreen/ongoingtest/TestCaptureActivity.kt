@@ -44,20 +44,30 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
         setContentView(activityMainBinding.root)
 
         checkPermissions()
-
-        activityMainBinding.makePhotoButton.setOnClickListener {
-
-            Log.d("MainActivityD","Start onClickScanButton")
-            // check permissions
-            if (!flagPermissions) {
-                checkPermissions()
-            }
-            //start photo fragment
+        if (!flagPermissions) {
+            checkPermissions()
+        }else{
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.res_photo_layout, PhotoFragment())
                 .addToBackStack(null)
                 .commit()
+        }
+
+        activityMainBinding.makePhotoButton.setOnClickListener {
+
+            //Log.d("MainActivityD","Start onClickScanButton")
+            // check permissions
+            if (!flagPermissions) {
+                checkPermissions()
+            }
+                //start photo fragment
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.res_photo_layout, PhotoFragment())
+                    .addToBackStack(null)
+                    .commit()
+
         }
     }
 
