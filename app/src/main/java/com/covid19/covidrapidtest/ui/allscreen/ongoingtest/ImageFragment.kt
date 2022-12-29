@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.compose.setContent
 import androidx.fragment.app.Fragment
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.FragmentImageBinding
@@ -58,6 +59,7 @@ class ImageFragment : Fragment() {
         }
         val goToResultActivity = view.findViewById<Button>(R.id.btn_go_result_activity)
         goToResultActivity.setOnClickListener {
+
             if (bitmap!= null) {
                 val resultActivity = ResultActivity()
                 resultActivity.setBitMap(bitmap)

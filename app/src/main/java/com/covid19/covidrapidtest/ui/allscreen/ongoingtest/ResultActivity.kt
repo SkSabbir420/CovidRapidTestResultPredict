@@ -13,9 +13,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.rememberNavController
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.navigation.PdfNavGraph
+import com.covid19.covidrapidtest.ui.navigation.SetupNavGraph
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.itextpdf.text.Document
@@ -63,7 +68,14 @@ class ResultActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+
+        //setContentView(R.layout.activity_result)
+        setContent {
+            //DisposeScreen()
+            val context = LocalContext.current
+            val navController = rememberNavController()
+            PdfNavGraph(navController = navController,context)
+        }
 
 
         try {
@@ -75,14 +87,15 @@ class ResultActivity : AppCompatActivity() {
         }
 
         //val imageAdd = findViewById<Button>(R.id.image_post)
-        val showResult= findViewById<TextView>(R.id.tv_resultShow)
-        val cratePdf= findViewById<Button>(R.id.btn_pdf_crate)
-        qrCodeShow= findViewById<ImageView>(R.id.ivQRCode)
-        cratePdf.setOnClickListener {
-            if (classify != null){
-                savePDF(classify!!)
-            }
-        }
+
+        //val showResult= findViewById<TextView>(R.id.tv_resultShow)
+        //val cratePdf= findViewById<Button>(R.id.btn_pdf_crate)
+        //qrCodeShow= findViewById<ImageView>(R.id.ivQRCode)
+        //cratePdf.setOnClickListener {
+            //if (classify != null){
+                //savePDF(classify!!)
+            //}
+       // }
 
 
 //        save_new_post_btn.setOnClickListener {
@@ -151,7 +164,8 @@ class ResultActivity : AppCompatActivity() {
 //                classify="The image classified is Covid Positive Confident:$result "
 //                Toast.makeText(this, "The image classified is Covid Negetive.\n Confident:$result ", Toast.LENGTH_SHORT).show()
 //            }
-        showResult.text = showresult()
+
+        //showResult.text = showresult() //comment by sabbir
 
        // }
 

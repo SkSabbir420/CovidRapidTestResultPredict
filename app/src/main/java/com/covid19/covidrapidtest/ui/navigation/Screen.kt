@@ -18,4 +18,6 @@ sealed class Screen(val route: String) {
     object RetakePictureActivity : Screen("RetakePictureActivity")
     object ResultShowActivity : Screen("ResultShowActivity")
     object ActionButtonScreen: Screen("ActionButtonScreen")
+    object DisposeScreen : Screen("DisposeScreen")
+    object PdfShowScreen : Screen("PdfShowScreen")
 }

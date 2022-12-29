@@ -7,10 +7,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 
 @Composable
-fun AllResultSeeScreen(){
+fun AllResultSeeScreen(navController: NavController){
 //    Column(
 //        modifier = Modifier.fillMaxSize(),
 //        verticalArrangement = Arrangement.Center,
@@ -22,6 +23,7 @@ fun AllResultSeeScreen(){
         modifier = Modifier.fillMaxSize(),
     ) {
         Spacer(modifier = Modifier.height(48.dp))
-        TestListSee()
+        TestListSee(navController)
+        TestListSee(navController)
     }
 }

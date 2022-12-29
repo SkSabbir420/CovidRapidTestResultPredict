@@ -11,6 +11,7 @@ import com.covid19.covidrapidtest.ResultShowActivity
 import com.covid19.covidrapidtest.RetakePictureActivity
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.ActionButtonScreen
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.OnGoingTest
+import com.covid19.covidrapidtest.ui.allscreen.pdf_screen.PdfShowScreen
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.*
 import com.covid19.covidrapidtest.ui.allscreen.screens.HomeScreen
 import com.covid19.covidrapidtest.ui.allscreen.screens.ListScreen
@@ -30,6 +31,9 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
         }
         composable(route = Screen.OnGoingTest.route) {
             OnGoingTest(navController)
+        }
+        composable(route = Screen.PdfShowScreen.route) {
+            PdfShowScreen(navController)
         }
 //        composable( route= "CameraActivity"){
 //            //CameraActivity(navController = navController)

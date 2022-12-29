@@ -56,7 +56,7 @@ fun ListScreen(navController:NavController) {
             )
         },
         content = {
-            AllResultSeeScreen()
+            AllResultSeeScreen(navController)
         }
     )
 }

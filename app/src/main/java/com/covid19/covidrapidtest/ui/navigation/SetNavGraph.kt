@@ -10,6 +10,7 @@ import com.covid19.covidrapidtest.CameraActivity
 import com.covid19.covidrapidtest.QRCodeReaderActivity
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.ActionButtonScreen
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.OnGoingTest
+import com.covid19.covidrapidtest.ui.allscreen.pdf_screen.PdfShowScreen
 import com.covid19.covidrapidtest.ui.allscreen.splash_screen.AnimatedSplashScreen
 
 @Composable
