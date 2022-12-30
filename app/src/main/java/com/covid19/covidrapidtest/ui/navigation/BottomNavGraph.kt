@@ -35,6 +35,9 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
         composable(route = Screen.PdfShowScreen.route) {
             PdfShowScreen(navController,Screen.ListScreen.route)
         }
+        composable(route = Screen.Main.route) {
+            MainScreen()
+        }
 //        composable( route= "CameraActivity"){
 //            //CameraActivity(navController = navController)
 ////            CameraCompose(context, cameraX = cameraX ) {

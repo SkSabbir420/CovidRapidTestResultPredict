@@ -138,6 +138,7 @@ fun HomeScreen(navController : NavController) {
                                     tint = Color.White,
                                     painter = painterResource(
                                         id = R.drawable.ic_baseline_qr_code_scanner_24
+
                                     ),
                                     contentDescription = null,
                                 )
@@ -145,7 +146,7 @@ fun HomeScreen(navController : NavController) {
                             }
                             Text(
                                 color = Color.White,
-                                text = "Perform Test"
+                                text = "Perform  Tests"
                             )
                         }
                     }
