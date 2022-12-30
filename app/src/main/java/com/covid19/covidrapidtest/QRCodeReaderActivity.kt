@@ -5,14 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.compose.rememberNavController
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.covid19.covidrapidtest.databinding.ActivityQrcodeReaderBinding
+import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.LotNumberScreen
+import com.covid19.covidrapidtest.ui.navigation.PdfNavGraph
+import com.covid19.covidrapidtest.ui.navigation.StartNavGraphFromLotNumber
 
 class QRCodeReaderActivity : AppCompatActivity() {
 
@@ -92,6 +102,19 @@ class QRCodeReaderActivity : AppCompatActivity() {
 
     fun goLotActivity(view: View) {
 
+        setContent {
+            //val navController = rememberNavController()
+           //LotNumberScreen(navController = navController)
+
+            val context = LocalContext.current
+            val navController = rememberNavController()
+            StartNavGraphFromLotNumber(navController = navController,context)
+        }
+
+        //val context = LocalContext.current
+        //val navController = rememberNavController()
+        //PdfNavGraph(navController = navController,context)
+       // navController.navigate(Screen.LotNumberScreen.route)
 
     }
 

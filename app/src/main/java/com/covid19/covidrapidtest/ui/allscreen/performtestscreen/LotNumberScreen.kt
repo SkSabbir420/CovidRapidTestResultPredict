@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
@@ -56,7 +57,8 @@ fun LotNumberScreen(navController: NavController){
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = {
-                navController.popBackStack()
+                //navController.popBackStack()
+                navController.navigate(BottomBarScreen.Home.route)
             }) {
                 Icon(imageVector = Icons.Filled.Close,
                     contentDescription = null,
@@ -141,8 +143,8 @@ fun LotNumberScreen(navController: NavController){
                     onClick = {
                         //navController.navigate("CameraActivity")
                         // navController.navigate(Screen.CameraActivity.route)
-                        //navController.navigate(Screen.QRCodeReaderActivity.route)
-                        navController.navigate(Screen.LotNumberScreen.route)
+                        navController.navigate(Screen.QRCodeReaderActivity.route)
+                        //navController.navigate(Screen.LotNumberScreen.route)
                         //context.startActivity(Intent(context,CameraActivity::class.java))
 
                     }) {
