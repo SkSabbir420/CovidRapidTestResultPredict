@@ -31,8 +31,10 @@ fun SetupNavGraph(navController: NavHostController,context:Context) {
 //        composable(route = Screen.CameraActivity.route) {
 //            context.startActivity(Intent(context, CameraActivity::class.java))
 //        }
+
         composable(route = Screen.QRCodeReaderActivity.route) {
             //context.startActivity(Intent(context, CameraActivity::class.java))
+            //navController.popBackStack()
             context.startActivity(Intent(context, QRCodeReaderActivity::class.java))
         }
 
