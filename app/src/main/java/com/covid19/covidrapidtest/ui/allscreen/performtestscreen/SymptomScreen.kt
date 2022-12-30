@@ -36,6 +36,14 @@ import java.util.*
 
 @Composable
 fun SymptomScreen(navController: NavHostController) {
+    var nameErrorCheck by remember { mutableStateOf(false) }
+    val birthErrorCheck by remember { mutableStateOf(false) }
+    val sexErrorCheck by remember { mutableStateOf(false) }
+    val symptomErrorCheck by remember { mutableStateOf(false) }
+    val firstVaccineErrorCheck by remember { mutableStateOf(false) }
+    val secondVaccineErrorCheck by remember { mutableStateOf(false) }
+    var text by remember{ mutableStateOf(TextFieldValue("")) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -73,6 +81,9 @@ fun SymptomScreen(navController: NavHostController) {
         },
 
         content = {
+
+
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -81,11 +92,8 @@ fun SymptomScreen(navController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Please enter your full name")
+                Text(text = "Please enter your full name", color = if(nameErrorCheck) MaterialTheme.colors.error else Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
-                var text by remember{
-                    mutableStateOf(TextFieldValue(""))
-                }
                 OutlinedTextField(
                     colors = TextFieldDefaults
                         .outlinedTextFieldColors(
@@ -99,6 +107,7 @@ fun SymptomScreen(navController: NavHostController) {
                     value = text,
                     onValueChange = { newText ->
                         text = newText
+                        nameErrorCheck = false
                     },
                     placeholder = {
                         Text(
@@ -106,19 +115,20 @@ fun SymptomScreen(navController: NavHostController) {
                             textAlign = TextAlign.Center
                         )
                     },
+                    isError = nameErrorCheck
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Please Select your birth year and sex")
+                Text(text = "Please Select your birth year and sex", color = if(birthErrorCheck) MaterialTheme.colors.error else Color.Black)
                 Row {
                     Row(modifier = Modifier.weight(1f)) {
                         val suggestions = listOf("2022","2021","2020","2019")
                         CustomDropDownMenu("birth year",suggestions,
-                            Modifier.padding(end = 4.dp))
+                            Modifier.padding(end = 4.dp),"birth")
                     }
                     Row(modifier = Modifier.weight(1f)) {
                         val suggestions2 = listOf("Female", "Male")
                         CustomDropDownMenu("sex",suggestions2,
-                            Modifier.padding(start = 4.dp))
+                            Modifier.padding(start = 4.dp),"sex")
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
@@ -136,7 +146,7 @@ fun SymptomScreen(navController: NavHostController) {
                             val suggestions = listOf("Unvaccined","Pfizer-BioNTexh","Sinovac"
                                 ,"Moderna","Janssen","AstraZeneca","Sputnik V","Others()")
                             CustomDropDownMenu("add vaccine",suggestions,
-                                Modifier.padding(end = 4.dp))
+                                Modifier.padding(end = 4.dp),"first")
                         }
                         Row(modifier = Modifier.weight(1f)) {
                             ShowDatePicker(LocalContext.current)
@@ -147,7 +157,7 @@ fun SymptomScreen(navController: NavHostController) {
                             val suggestions = listOf("Unvaccined","Pfizer-BioNTexh","Sinovac"
                                 ,"Moderna","Janssen","AstraZeneca","Sputnik V","Others()")
                             CustomDropDownMenu("add vaccine",suggestions,
-                                Modifier.padding(end = 4.dp))
+                                Modifier.padding(end = 4.dp),"second")
                         }
                         Row(modifier = Modifier.weight(1f)) {
                             ShowDatePicker(LocalContext.current)
@@ -179,6 +189,9 @@ fun SymptomScreen(navController: NavHostController) {
             FloatingActionButton(
                 backgroundColor = AppColor,
                 onClick = {
+                    //if (text.text.isEmpty()){
+                       // nameErrorCheck = true
+                   // }
                     navController.navigate(Screen.WashHandScreen.route)
                 }
             ) {
@@ -320,7 +333,7 @@ fun ShowDatePicker(context: Context){
 }
 
 @Composable
-fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier) {
+fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,callerName:String) {
 
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf("") }
@@ -346,7 +359,11 @@ fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier)
                     focusedLabelColor = AppColor
                 ),
             value = selectedText,
-            onValueChange = { selectedText = it },
+            onValueChange = { selectedText = it
+                                //when(callerName){
+                                 //    "birth" -> birthErrorCheck
+                                //}
+                            },
             modifier = Modifier
                 .height(60.dp)
                 .onGloballyPositioned { coordinates ->

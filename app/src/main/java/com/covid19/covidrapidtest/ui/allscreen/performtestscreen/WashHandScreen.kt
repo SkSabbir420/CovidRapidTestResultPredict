@@ -1,8 +1,10 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.navigation.Screen
+import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 import com.covid19.covidrapidtest.ui.theme.Purple40
 
@@ -59,6 +62,8 @@ fun WashHandScreen(navController: NavHostController) {
 
         ) {
             OutlinedButton(
+                border = BorderStroke(1.dp,color = AppColor),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColor,),
                 modifier = Modifier.weight(1F)
                     .height(65.dp).padding(8.dp),
                 onClick = { navController.popBackStack() }
@@ -66,6 +71,7 @@ fun WashHandScreen(navController: NavHostController) {
                 Text(text = "Back")
             }
             Button(
+                colors = ButtonDefaults.buttonColors(containerColor = AppColor),
                 modifier = Modifier.weight(1F)
                     .height(65.dp).padding(8.dp),
                 onClick = {

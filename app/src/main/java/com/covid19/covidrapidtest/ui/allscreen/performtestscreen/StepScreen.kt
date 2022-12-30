@@ -1,11 +1,13 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -157,6 +159,8 @@ fun StepScreen(navController: NavHostController) {
                 ) {
                     if (isPrevVisible.value) {
                         OutlinedButton(
+                            border = BorderStroke(1.dp,color = AppColor),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColor,),
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = {
@@ -170,6 +174,8 @@ fun StepScreen(navController: NavHostController) {
                         }
                     }else{
                         OutlinedButton(
+                            border = BorderStroke(1.dp,color = AppColor),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColor,),
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = { navController.popBackStack() }
@@ -181,6 +187,7 @@ fun StepScreen(navController: NavHostController) {
 
                     if (isNextVisible.value) {
                         androidx.compose.material3.Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = AppColor),
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = {
@@ -194,6 +201,7 @@ fun StepScreen(navController: NavHostController) {
                     }
                     if (isFinishVisible.value) {
                         androidx.compose.material3.Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = AppColor),
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = {

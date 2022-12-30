@@ -8,6 +8,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -195,7 +196,9 @@ fun PdfContentScreen(){
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            modifier = Modifier.width(60.dp).height(60.dp),
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp),
                             painter = painterResource(
                                 id = R.drawable.image_qr
                             ),
@@ -208,7 +211,9 @@ fun PdfContentScreen(){
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            modifier = Modifier.width(60.dp).height(60.dp),
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp),
                             painter = painterResource(
                                 id = R.drawable.negative_result
                             ),
@@ -225,6 +230,7 @@ fun PdfContentScreen(){
                 ) {
 
                     Button(
+                        colors = ButtonDefaults.buttonColors(containerColor = AppColor),
                         modifier = Modifier.padding(8.dp),
                         onClick = {
                             //navController.navigate(Screen.StepScreen.route)

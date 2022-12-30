@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
@@ -52,6 +50,29 @@ fun LotNumberScreen(navController: NavController){
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
+        val shouldShowDialog = remember{ mutableStateOf(false) }
+        if (shouldShowDialog.value){
+            AlertDialog(
+                onDismissRequest = {shouldShowDialog.value = false},
+                title = { androidx.compose.material.Text(text = "Notice") },
+                text = { androidx.compose.material.Text(text = "The lot number you entered did not match any test. Please make sure you entered the right one") },
+                confirmButton = {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = AppColor
+                        ),
+                        onClick = {
+                        shouldShowDialog.value = false
+                    }) {
+                        Text(text = "ok", color = Color.White)
+                    }
+                }
+
+            )
+        }
+
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -109,7 +130,11 @@ fun LotNumberScreen(navController: NavController){
                 }
             )
             IconButton(onClick = {
-                navController.navigate(Screen.BoxIntroScreen.route)
+                if(text.text == "1234"){
+                    navController.navigate(Screen.BoxIntroScreen.route)
+                }else{
+                    shouldShowDialog.value = true
+                }
 
             }) {
                 Icon(imageVector = Icons.Filled.ArrowForward,
