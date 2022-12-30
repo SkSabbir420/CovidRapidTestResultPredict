@@ -33,7 +33,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             OnGoingTest(navController)
         }
         composable(route = Screen.PdfShowScreen.route) {
-            PdfShowScreen(navController)
+            PdfShowScreen(navController,Screen.ListScreen.route)
         }
 //        composable( route= "CameraActivity"){
 //            //CameraActivity(navController = navController)

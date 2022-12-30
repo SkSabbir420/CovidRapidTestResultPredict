@@ -23,11 +23,12 @@ import androidx.navigation.NavHostController
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.DisposeScreen
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
+import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 
 @Composable
-fun PdfShowScreen(navController:NavController){
+fun PdfShowScreen(navController:NavController,backRoute:String){
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -43,7 +44,12 @@ fun PdfShowScreen(navController:NavController){
                 },
                 navigationIcon = {
                     IconButton(onClick = {
+
+                        if(backRoute == Screen.DisposeScreen.route){
+                            navController.navigate(Screen.OnGoingTest.route)
+                        }else{
                         navController.popBackStack()
+                        }
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Close,
@@ -84,6 +90,6 @@ fun PdfShowScreen(navController:NavController){
 @Composable
 fun DefaultPdfPreview() {
     CovidRapidTestTheme {
-        PdfShowScreen(navController = NavHostController(LocalContext.current))
+       // PdfShowScreen(navController = NavHostController(LocalContext.current),)
     }
 }

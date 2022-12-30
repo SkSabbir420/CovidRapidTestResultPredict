@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.covid19.covidrapidtest.ui.navigation.Screen
@@ -35,40 +36,63 @@ fun TestListSee(navController: NavController){
     Card(
         modifier = Modifier.padding(16.dp),
         //,
-        elevation = 16.dp
+        elevation = 12.dp
     ){
        Row(
            modifier = Modifier
                .fillMaxWidth()
                //.clip(RoundedCornerShape(12.dp))
-               //.padding(20.dp)
+               .padding(8.dp)
                //.background(Color.LightGray)
            ,
            verticalAlignment = Alignment.CenterVertically
 
        ) {
-                val context = LocalContext.current
-                Text(text = "Name Test", modifier = Modifier.padding(16.dp), color = AppColor)
-                Text(text = "Date", modifier = Modifier.padding(16.dp), color = AppColor)
-                Spacer(modifier = Modifier.weight(1.0f))
-                Button(colors = ButtonDefaults.buttonColors(
-                    containerColor = Green
-                ),
-                    onClick = {
-                        // context.startActivity(Intent(context,TestCaptureActivity::class.java))
-                        navController.navigate(Screen.PdfShowScreen.route)
-                    }
-                ) {
-                    Text(text = "review", color = Color.White)
-                }
-                Icon(
-                    tint = Color.Black,
-                    modifier = Modifier.padding(16.dp),
-                    imageVector = Icons.Outlined.Delete,
-                    contentDescription =""
-                )
-            
-        }
+           Row(modifier = Modifier.fillMaxWidth(.3f)){
+               Column(modifier = Modifier.fillMaxWidth().padding(4.dp)
+                   , verticalArrangement = Arrangement.Center,
+                   horizontalAlignment = Alignment.CenterHorizontally
+               ) {
+                   Text(text = "Sabbir Test", color = AppColor)
+                   Text(text = "Male - 22 years old",color = Color.Black, fontSize = 10.sp)
+               }
+
+           }
+           Row(modifier = Modifier.fillMaxWidth(.3f)){
+               Column(modifier = Modifier.fillMaxWidth().padding(4.dp)
+               , verticalArrangement = Arrangement.Center,
+                   horizontalAlignment = Alignment.CenterHorizontally
+               ) {
+                   Text(text = "Date", color = AppColor)
+                   Text(text = "22/12/2022",color = Color.Black, fontSize = 10.sp)
+               }
+
+           }
+           Row(modifier = Modifier.fillMaxWidth(.7f),
+               verticalAlignment = Alignment.CenterVertically,
+               horizontalArrangement = Arrangement.Center
+
+           ){
+               Button(modifier = Modifier.padding(4.dp),
+                   colors = ButtonDefaults.buttonColors(
+                       containerColor = Green
+                   ),
+                   onClick = {
+                       // context.startActivity(Intent(context,TestCaptureActivity::class.java))
+                       navController.navigate(Screen.PdfShowScreen.route)
+                   }
+               ) {
+                   Text(text = "review", color = Color.White)
+               }
+           }
+               Icon(
+                   tint = Color.Black,
+                   modifier = Modifier,
+                   imageVector = Icons.Outlined.Delete,
+                   contentDescription =""
+               )
+
+       }
     }
 }
 

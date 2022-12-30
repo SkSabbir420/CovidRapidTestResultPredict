@@ -24,7 +24,15 @@ fun PdfNavGraph(navController: NavHostController,context:Context) {
             DisposeScreen(navController)
         }
         composable(route = Screen.PdfShowScreen.route) {
-            PdfShowScreen(navController)
+            PdfShowScreen(navController,Screen.DisposeScreen.route)
         }
+
+        composable(route = Screen.OnGoingTest.route) {
+            OnGoingTest(navController = navController)
+        }
+        composable(route = Screen.Main.route) {
+           MainScreen()
+        }
+        
     }
 }

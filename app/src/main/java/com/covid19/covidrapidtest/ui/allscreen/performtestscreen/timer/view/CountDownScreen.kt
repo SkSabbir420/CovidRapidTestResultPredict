@@ -55,7 +55,7 @@ fun CountDownView(
         }
 
         Text(
-            text = "\"Name\" cassette result is ready to be sent in",
+            text = "\"Sabbir\" cassette result is ready to be sent in",
             color = androidx.compose.ui.graphics.Color.White,
             fontSize = 25.sp,
             textAlign = TextAlign.Center,

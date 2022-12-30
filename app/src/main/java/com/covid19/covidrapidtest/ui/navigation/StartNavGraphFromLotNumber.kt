@@ -32,9 +32,10 @@ fun StartNavGraphFromLotNumber(navController: NavHostController,context:Context)
         composable(route = Screen.OnGoingTest.route) {
             OnGoingTest(navController)
         }
-        composable(route = Screen.PdfShowScreen.route) {
-            PdfShowScreen(navController)
-        }
+//        composable(route = Screen.PdfShowScreen.route) {
+//            PdfShowScreen(navController)
+//        }
+
 //        composable( route= "CameraActivity"){
 //            //CameraActivity(navController = navController)
 ////            CameraCompose(context, cameraX = cameraX ) {

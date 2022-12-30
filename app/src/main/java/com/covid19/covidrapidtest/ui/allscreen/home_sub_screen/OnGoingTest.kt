@@ -20,6 +20,8 @@ import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
+import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
+import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 
 @Composable
@@ -49,7 +51,8 @@ fun OnGoingTest(navController: NavController){
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.popBackStack()
+                        //navController.popBackStack()
+                        navController.navigate(Screen.Main.route)
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Close,

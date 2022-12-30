@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.view.CountDownView
+import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
@@ -25,7 +26,8 @@ fun TimerScreen(navController: NavHostController) {
             .fillMaxWidth()
     ) {
         IconButton(onClick = {
-            navController.popBackStack()
+            //navController.popBackStack()
+            navController.navigate(BottomBarScreen.Home.route)
         }) {
             Icon(imageVector = Icons.Filled.Close,
                 contentDescription = null,
