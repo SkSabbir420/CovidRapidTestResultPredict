@@ -54,6 +54,10 @@ fun StartNavGraphFromLotNumber(navController: NavHostController,context:Context)
         composable(route = Screen.LotNumberScreen.route) {
             LotNumberScreen(navController)
         }
+        composable(route = Screen.Main.route) {
+            //MainScreen(navController = navController)
+            MainScreen()
+        }
 
         composable(route = Screen.BoxIntroScreen.route) {
             BoxIntroScreen(navController)

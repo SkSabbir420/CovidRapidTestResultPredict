@@ -58,7 +58,8 @@ fun LotNumberScreen(navController: NavController){
         ) {
             IconButton(onClick = {
                 //navController.popBackStack()
-                navController.navigate(BottomBarScreen.Home.route)
+                //navController.navigate(BottomBarScreen.Home.route)
+                navController.navigate(Screen.Main.route)
             }) {
                 Icon(imageVector = Icons.Filled.Close,
                     contentDescription = null,
