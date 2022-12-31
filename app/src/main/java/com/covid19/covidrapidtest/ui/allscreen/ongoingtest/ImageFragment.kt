@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.FragmentImageBinding
@@ -95,6 +97,9 @@ class ImageFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_image, container, false)
 
+        val deviceID = Settings.Secure.getString(context!!.contentResolver, Settings.Secure.ANDROID_ID) //me be case for crash
+
+
         try {
             ///Main code 1
             tflite = Interpreter(loadmodelfile(context as Activity))
@@ -156,7 +161,7 @@ class ImageFragment : Fragment() {
             try {
                 GlobalScope.launch {
                     curFile?.let {
-                        val image = imageRef.child("images/").putFile(it).await()
+                        val image = imageRef.child("covidTestStorage").child(deviceID).child("n8QuSOavtYYQKP0fxL1e.jpg").putFile(it).await()
                         image.storage.downloadUrl.addOnSuccessListener { uri ->
                             Log.d("MainActivity",uri.toString())
                         }

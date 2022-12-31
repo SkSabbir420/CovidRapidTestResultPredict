@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.fromobject.SymptomFrom
+import com.covid19.covidrapidtest.ui.allscreen.common.fromobject.SymptomFrom
 
 class SharedViewModel:ViewModel() {
     //var symptomFrom by mutableStateOf<SymptomFrom?>(null)

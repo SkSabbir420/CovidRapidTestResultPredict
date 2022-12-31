@@ -131,8 +131,8 @@ fun LotNumberScreen(navController: NavController,sharedViewModel: SharedViewMode
                 }
             )
             IconButton(onClick = {
-                if(text.text == "1234"){
-                    sharedViewModel.publicFrom.lotNumber = "1"
+                if(text.text == "S0221101701"){
+                    sharedViewModel.publicFrom.lotNumber = "S0221101701"
                     navController.navigate(Screen.BoxIntroScreen.route)
                 }else{
                     shouldShowDialog.value = true

@@ -1,4 +1,4 @@
-package com.covid19.covidrapidtest.ui.allscreen.performtestscreen.fromobject
+package com.covid19.covidrapidtest.ui.allscreen.common.fromobject
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class  SymptomFrom(
     var deviceId:String = "DefaultDeviceId",
+    var nodeUniqueKey:String = "DefaultNodeKey",
     var lotNumber:String ="1234",
     var createTime:String ="DefaultTime",
     var nameValue:String ="DefaultName",

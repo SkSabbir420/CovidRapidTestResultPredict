@@ -119,10 +119,9 @@ fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel
 
     val scope = rememberCoroutineScope()
     val deviceID = Settings.Secure.getString(LocalContext.current.contentResolver,Settings.Secure.ANDROID_ID)
-    val personCollectionRef = Firebase.firestore.collection("covidTestFromFillUpMain")
+    val personCollectionRef = Firebase.firestore.collection("covidTestDatabase")
         .document(deviceID).collection("fromFillUp")
-    val personCollectionRef2 = Firebase.firestore.collection("covidTestFromFillUpOngoing")
-        .document(deviceID).collection("fromFillUp")
+    val nodeUniqueKey = Firebase.firestore.collection("covidTestDatabase").document().id
 
     sharedViewModel.publicFrom.deviceId = deviceID
 
@@ -233,11 +232,12 @@ fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel
 
                                 val crateTime = LocalDateTime.now().toString()
                                 sharedViewModel.publicFrom.createTime = crateTime
+                                sharedViewModel.publicFrom.nodeUniqueKey = nodeUniqueKey
 
                                 GlobalScope.launch {
                                     try{
                                         //personCollectionRef.document(crateTime).set(sharedViewModel.publicFrom).await()
-                                        personCollectionRef.document("1234").set(sharedViewModel.publicFrom).await()
+                                        personCollectionRef.document(nodeUniqueKey).set(sharedViewModel.publicFrom).await()
                                         withContext(Dispatchers.Main) {
                                             navController.navigate(Screen.TimerScreen.route)
                                             Log.d("StepScreen","Successfully saved data.")
