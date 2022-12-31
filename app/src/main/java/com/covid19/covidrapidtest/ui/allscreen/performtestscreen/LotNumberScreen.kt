@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
 import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
@@ -42,7 +43,7 @@ import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 import com.covid19.covidrapidtest.ui.theme.Purple40
 
 @Composable
-fun LotNumberScreen(navController: NavController){
+fun LotNumberScreen(navController: NavController,sharedViewModel: SharedViewModel){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -131,6 +132,7 @@ fun LotNumberScreen(navController: NavController){
             )
             IconButton(onClick = {
                 if(text.text == "1234"){
+                    sharedViewModel.publicFrom.lotNumber = "1"
                     navController.navigate(Screen.BoxIntroScreen.route)
                 }else{
                     shouldShowDialog.value = true
@@ -200,6 +202,6 @@ fun LotNumberScreen(navController: NavController){
 @Composable
 fun DefaultPreviewLotNumberScreen() {
     CovidRapidTestTheme {
-        LotNumberScreen(NavController(LocalContext.current))
+        //LotNumberScreen(NavController(LocalContext.current))
     }
 }

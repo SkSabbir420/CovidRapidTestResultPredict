@@ -33,10 +33,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
+import com.covid19.covidrapidtest.ui.navigation.Screen
 import java.util.*
 
 @Composable
-fun SymptomScreen(navController: NavHostController) {
+fun SymptomScreen(navController: NavHostController,sharedViewModel: SharedViewModel) {
 
     var nameErrorCheck by remember { mutableStateOf(false) }
     var birthErrorCheck by remember { mutableStateOf(false) }
@@ -52,6 +54,7 @@ fun SymptomScreen(navController: NavHostController) {
     var symptomValue by remember { mutableStateOf("symptom") }
     var firstVaccineValue by remember { mutableStateOf("first") }
     var secondVaccineValue by remember { mutableStateOf("second") }
+    var thirdVaccineValue by remember { mutableStateOf("thirdVaccineNone") }
 
     var headacheCheckStatus by remember { mutableStateOf(false) }
     var achingMusclesCheckStatus by remember { mutableStateOf(false) }
@@ -71,6 +74,8 @@ fun SymptomScreen(navController: NavHostController) {
 
     var shouldShowDialogForSymptom by remember{ mutableStateOf(false) }
     var shouldShowDialogForVaccine by remember{ mutableStateOf(false) }
+    var shouldShowAnotherVaccine by remember{ mutableStateOf(false) }
+    var buttonEnabalStatus by remember { mutableStateOf(true) }
 
     if (shouldShowDialogForSymptom){
         AlertDialog(
@@ -176,7 +181,8 @@ fun SymptomScreen(navController: NavHostController) {
                     onValueChange = { newText ->
                         text = newText
                         nameValue = newText.text
-                        nameErrorCheck = false
+                        nameErrorCheck = newText.text == ""
+
                     },
                     placeholder = {
                         Text(
@@ -302,23 +308,48 @@ fun SymptomScreen(navController: NavHostController) {
                             ShowDatePicker(LocalContext.current)
                         }
                     }
+                    if (shouldShowAnotherVaccine){
+                        Row(verticalAlignment = Alignment.CenterVertically){
+                            Row(modifier = Modifier.weight(1f)) {
+                                val suggestions = listOf("Unvaccined","Pfizer-BioNTexh","Sinovac"
+                                    ,"Moderna","Janssen","AstraZeneca","Sputnik V","Others()")
+                                CustomDropDownMenu("add vaccine",suggestions,
+                                    Modifier.padding(end = 4.dp),"third"){
+                                    thirdVaccineValue = it
+                                    //Log.d("SymptomScreen","Second vaccine select $it")
+                                }
+                            }
+                            Row(modifier = Modifier.weight(1f)) {
+                                ShowDatePicker(LocalContext.current)
+                            }
+                        }
+                    }
 
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    IconButton(
-                    onClick = { }
-                ) {
-                    Icon(
-                        tint = AppColor,
-                        imageVector = Icons.Filled.AddCircle,
-                        contentDescription = null
-                    )
+
+                if(buttonEnabalStatus){
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+
+                        IconButton(
+                            enabled = buttonEnabalStatus,
+                            onClick = {
+                                shouldShowAnotherVaccine = true
+                                buttonEnabalStatus = false
+                            }
+                        ) {
+                            Icon(
+                                tint = AppColor,
+                                imageVector = Icons.Filled.AddCircle,
+                                contentDescription = null
+                            )
+                        }
+                        Text(text = "Add another type of vaccine")
+                    }
                 }
-                    Text(text = "Add another type of vaccine")
-                }
+
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -328,14 +359,12 @@ fun SymptomScreen(navController: NavHostController) {
             FloatingActionButton(
                 backgroundColor = AppColor,
                 onClick = {
-                    nameErrorCheck = nameValue == "name"
-                    birthErrorCheck = birthValue == "birth"
-                    sexErrorCheck = sexValue == "sex"
-                    firstVaccineErrorCheck = firstVaccineValue ==  "first"
-                    secondVaccineErrorCheck = secondVaccineValue == "second"
-                    nameErrorCheck = nameValue == "name"
+                    nameErrorCheck = nameValue == "name" || nameValue == ""
+                    birthErrorCheck = birthValue == "birth" || birthValue == ""
+                    sexErrorCheck = sexValue == "sex" || sexValue == ""
+                    firstVaccineErrorCheck = firstVaccineValue ==  "first" || firstVaccineValue == ""
+                    secondVaccineErrorCheck = secondVaccineValue == "second" || secondVaccineValue == ""
 
-                    Log.d("SelectecAllValue" ,"$nameValue $birthValue $sexValue $firstVaccineValue $secondVaccineValue")
                     if (
                         !headacheCheckStatus &&
                         !achingMusclesCheckStatus &&
@@ -356,6 +385,42 @@ fun SymptomScreen(navController: NavHostController) {
                         //shouldShowDialog.value = true
 
                         if(!firstVaccineErrorCheck && !secondVaccineErrorCheck){
+
+//                            Log.d("SelectecAllValue" ,"$nameValue $birthValue $sexValue $firstVaccineValue $secondVaccineValue $thirdVaccineValue" +
+//                                    " $headacheCheckStatus "+
+//                                    " $achingMusclesCheckStatus "+
+//                                " $shortnessOfBreathCheckStatus "+
+//                                " $diarrheaCheckStatus "+
+//                                    " $fatigueCheckStatus "+
+//                                    " $feverOrChillsCheckStatus "+
+//                                    " $soreThroatCheckStatus "+
+//                                    " $lossOfTasteAndSmellCheckStatus "+
+//                                    " $coughCheckStatus "+
+//                                    " $runningNoseCheckStatus "+
+//                                    " $sneezingCheckStatus "+
+//                                    " $noSymptomCheckStatus"
+//                            )
+
+                                sharedViewModel.publicFrom.nameValue = nameValue
+                                sharedViewModel.publicFrom.birthValue =  birthValue
+                                sharedViewModel.publicFrom.sexValue = sexValue
+                                sharedViewModel.publicFrom.firstVaccineValue = firstVaccineValue
+                                sharedViewModel.publicFrom.secondVaccineValue = secondVaccineValue
+                                sharedViewModel.publicFrom.thirdVaccineValue = thirdVaccineValue
+                                sharedViewModel.publicFrom.headacheCheckStatus = headacheCheckStatus
+                                sharedViewModel.publicFrom.achingMusclesCheckStatus = achingMusclesCheckStatus
+                                sharedViewModel.publicFrom.shortnessOfBreathCheckStatus = shortnessOfBreathCheckStatus
+                                sharedViewModel.publicFrom.diarrheaCheckStatus = diarrheaCheckStatus
+                                sharedViewModel.publicFrom.fatigueCheckStatus = fatigueCheckStatus
+                                sharedViewModel.publicFrom.feverOrChillsCheckStatus = feverOrChillsCheckStatus
+                                sharedViewModel.publicFrom.soreThroatCheckStatus = soreThroatCheckStatus
+                                sharedViewModel.publicFrom.lossOfTasteAndSmellCheckStatus = lossOfTasteAndSmellCheckStatus
+                                sharedViewModel.publicFrom.coughCheckStatus = coughCheckStatus
+                                sharedViewModel.publicFrom.runningNoseCheckStatus = runningNoseCheckStatus
+                                sharedViewModel.publicFrom.sneezingCheckStatus = sneezingCheckStatus
+                                sharedViewModel.publicFrom.noSymptomCheckStatus = noSymptomCheckStatus
+
+                                navController.navigate(Screen.WashHandScreen.route)
                         }else{
                             shouldShowDialogForVaccine = true
                         }
@@ -568,6 +633,6 @@ fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,
 @Composable
 fun DefaultPreviewSymptomScreen() {
     CovidRapidTestTheme {
-        SymptomScreen(NavHostController(LocalContext.current))
+        //SymptomScreen(NavHostController(LocalContext.current))
     }
 }

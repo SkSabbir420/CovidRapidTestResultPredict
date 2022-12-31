@@ -1,5 +1,6 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -27,6 +28,7 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 
@@ -92,7 +94,7 @@ fun getList(): List<HorizontalPagerContent> {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun StepScreen(navController: NavHostController) {
+fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel) {
 
     val pagerState = rememberPagerState()
     val list = getList()
@@ -205,7 +207,9 @@ fun StepScreen(navController: NavHostController) {
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = {
-                                navController.navigate(Screen.TimerScreen.route)
+                                Log.d("StepScreen",sharedViewModel.publicFrom.nameValue)
+                                Log.d("StepScreen",sharedViewModel.publicFrom.lotNumber)
+                                //navController.navigate(Screen.TimerScreen.route)
                             }) {
                             androidx.compose.material3.Text(text = "Finish")
                         }

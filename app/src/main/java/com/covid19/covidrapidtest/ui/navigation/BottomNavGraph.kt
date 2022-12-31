@@ -55,7 +55,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             context.startActivity(Intent(context, QRCodeReaderActivity::class.java))
         }
         composable(route = Screen.LotNumberScreen.route) {
-            LotNumberScreen(navController)
+            //LotNumberScreen(navController) comment by sabbir 31
         }
 
         composable(route = Screen.BoxIntroScreen.route) {
@@ -65,7 +65,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             BoxContentScreen(navController)
         }
         composable(route = Screen.StepScreen.route) {
-            StepScreen(navController)
+            //StepScreen(navController) //comment by sabbir 31
         }
         composable(route = Screen.TimerScreen.route){
             TimerScreen(navController)
@@ -74,7 +74,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
             WashHandScreen(navController)
         }
         composable(route = Screen.SymptomScreen.route) {
-            SymptomScreen(navController)
+            //SymptomScreen(navController) //comment by sabbir 31
         }
         composable(route = Screen.ActionButtonScreen.route) {
             ActionButtonScreen(navController)
