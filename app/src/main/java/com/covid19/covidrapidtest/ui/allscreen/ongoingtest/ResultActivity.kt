@@ -48,9 +48,9 @@ import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
-    private var myUrl = ""
+    // private var myUrl = ""
     private var classify:String? = null
-    private var imageUri: Uri? = null
+    // private var imageUri: Uri? = null
     //    private var storagePostPicRef: StorageReference? = null
     private var bitmap: Bitmap? = null
     protected var tflite: Interpreter? = null
@@ -60,8 +60,8 @@ class ResultActivity : AppCompatActivity() {
     private var outputProbabilityBuffer: TensorBuffer? = null
     private var probabilityProcessor: TensorProcessor? = null
     private var labels: List<String>? = null
-    private var ourMember = false
-    private var verifiedUser = false
+    // private var ourMember = false
+    // private var verifiedUser = false
     private lateinit var qrCodeShow:ImageView
 
 
@@ -153,6 +153,7 @@ class ResultActivity : AppCompatActivity() {
             outputProbabilityBuffer = TensorBuffer.createFixedSize(probabilityShape, probabilityDataType)
             probabilityProcessor = TensorProcessor.Builder().add(postprocessNormalizeOp).build()
             tflite!!.run(inputImageBuffer!!.buffer, outputProbabilityBuffer!!.buffer.rewind())
+
             // after execution
             // after execution
 //            val result = outputProbabilityBuffer!!.floatArray[0]

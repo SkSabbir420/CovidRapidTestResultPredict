@@ -1,10 +1,10 @@
-package com.covid19.covidrapidtest.ui.allscreen.performtestscreen.fromobject
+package com.covid19.covidrapidtest.ui.allscreen.common
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class  SymptomFrom(
+class  FromFillupForOnGoing(
     var deviceId:String = "DefaultDeviceId",
     var lotNumber:String ="1234",
     var createTime:String ="DefaultTime",

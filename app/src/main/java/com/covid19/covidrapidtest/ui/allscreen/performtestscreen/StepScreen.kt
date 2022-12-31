@@ -1,7 +1,12 @@
 package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
+import android.annotation.SuppressLint
+import android.os.Build
+import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,7 +22,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -26,11 +33,16 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.launch
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
+import java.lang.StringBuilder
+import java.time.LocalDateTime
 
 
 data class HorizontalPagerContent(
@@ -92,6 +104,8 @@ fun getList(): List<HorizontalPagerContent> {
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("HardwareIds")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel) {
@@ -104,6 +118,15 @@ fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel
     val isPrevVisible = remember { derivedStateOf { pagerState.currentPage != 0 } }
 
     val scope = rememberCoroutineScope()
+    val deviceID = Settings.Secure.getString(LocalContext.current.contentResolver,Settings.Secure.ANDROID_ID)
+    val personCollectionRef = Firebase.firestore.collection("covidTestFromFillUpMain")
+        .document(deviceID).collection("fromFillUp")
+    val personCollectionRef2 = Firebase.firestore.collection("covidTestFromFillUpOngoing")
+        .document(deviceID).collection("fromFillUp")
+
+    sharedViewModel.publicFrom.deviceId = deviceID
+
+
 
     Column(
         modifier = Modifier.fillMaxSize().padding(8.dp),
@@ -207,8 +230,23 @@ fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel
                             modifier = Modifier.weight(1F)
                                 .height(65.dp).padding(8.dp),
                             onClick = {
-                                Log.d("StepScreen",sharedViewModel.publicFrom.nameValue)
-                                Log.d("StepScreen",sharedViewModel.publicFrom.lotNumber)
+
+                                val crateTime = LocalDateTime.now().toString()
+                                sharedViewModel.publicFrom.createTime = crateTime
+
+                                GlobalScope.launch {
+                                    try{
+                                        //personCollectionRef.document(crateTime).set(sharedViewModel.publicFrom).await()
+                                        personCollectionRef.document("1234").set(sharedViewModel.publicFrom).await()
+                                        withContext(Dispatchers.Main) {
+                                            navController.navigate(Screen.TimerScreen.route)
+                                            Log.d("StepScreen","Successfully saved data.")
+                                        }
+                                    }catch (e:Exception){
+                                        Log.d("StepScreen","$e")
+                                    }
+
+                                }
                                 //navController.navigate(Screen.TimerScreen.route)
                             }) {
                             androidx.compose.material3.Text(text = "Finish")
@@ -221,6 +259,29 @@ fun StepScreen(navController: NavHostController,sharedViewModel: SharedViewModel
 
     }
 }
+
+//private fun savePerson(person: Person) = CoroutineScope(Dispatchers.IO).launch {
+//    try {
+//        personCollectionRef.set(person).await()
+//        withContext(Dispatchers.Main) {
+//            Toast.makeText(this@MainActivity, "Successfully saved data.", Toast.LENGTH_LONG).show()
+//        }
+//    } catch(e: Exception) {
+//        withContext(Dispatchers.Main) {
+//            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+//        }
+//    }
+//}
+//private fun retrievePersons()= CoroutineScope(Dispatchers.IO).launch {
+//    try {
+//        val querySnapshot =  personCollectionRef.get().await()
+//        val sb = StringBuilder()
+//        Log.d("MainActivity",querySnapshot.toString())
+//
+//    }catch (e:Exception){
+//        Log.d("MainActivity",e.toString())
+//    }
+//}
 
 
 

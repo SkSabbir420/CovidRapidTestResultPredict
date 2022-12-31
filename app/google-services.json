@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1021875641514",
+    "project_id": "covid-rapid-test",
+    "storage_bucket": "covid-rapid-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021875641514:android:0b4156b7b2a0c77b9d84d3",
+        "android_client_info": {
+          "package_name": "com.covid19.covidrapidtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021875641514-forp1ov4evrpthubt06hso944th2h87s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzJAuwb0tu2QzteoS046TxV8L7ZyRNDP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021875641514-forp1ov4evrpthubt06hso944th2h87s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

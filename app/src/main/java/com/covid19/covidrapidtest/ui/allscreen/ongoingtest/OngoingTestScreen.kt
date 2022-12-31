@@ -7,13 +7,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun OngoingTestScreen(){
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Text(text = "On GoingTest Screen")
-//    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
