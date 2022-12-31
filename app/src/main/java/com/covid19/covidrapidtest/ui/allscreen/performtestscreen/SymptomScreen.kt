@@ -2,6 +2,7 @@ package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.util.Log
 import android.widget.DatePicker
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
@@ -25,24 +26,91 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
-import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 import com.google.accompanist.flowlayout.FlowRow
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import com.covid19.covidrapidtest.R
 import java.util.*
 
 @Composable
 fun SymptomScreen(navController: NavHostController) {
+
     var nameErrorCheck by remember { mutableStateOf(false) }
-    val birthErrorCheck by remember { mutableStateOf(false) }
-    val sexErrorCheck by remember { mutableStateOf(false) }
+    var birthErrorCheck by remember { mutableStateOf(false) }
+    var sexErrorCheck by remember { mutableStateOf(false) }
     val symptomErrorCheck by remember { mutableStateOf(false) }
-    val firstVaccineErrorCheck by remember { mutableStateOf(false) }
-    val secondVaccineErrorCheck by remember { mutableStateOf(false) }
+    var firstVaccineErrorCheck by remember { mutableStateOf(false) }
+    var secondVaccineErrorCheck by remember { mutableStateOf(false) }
+
+
+    var nameValue by remember { mutableStateOf("name") }
+    var birthValue by remember { mutableStateOf("birth") }
+    var sexValue by remember { mutableStateOf("sex") }
+    var symptomValue by remember { mutableStateOf("symptom") }
+    var firstVaccineValue by remember { mutableStateOf("first") }
+    var secondVaccineValue by remember { mutableStateOf("second") }
+
+    var headacheCheckStatus by remember { mutableStateOf(false) }
+    var achingMusclesCheckStatus by remember { mutableStateOf(false) }
+    var shortnessOfBreathCheckStatus by remember { mutableStateOf(false) }
+    var diarrheaCheckStatus by remember { mutableStateOf(false) }
+    var fatigueCheckStatus by remember { mutableStateOf(false) }
+    var feverOrChillsCheckStatus by remember { mutableStateOf(false) }
+    var soreThroatCheckStatus by remember { mutableStateOf(false) }
+    var lossOfTasteAndSmellCheckStatus by remember { mutableStateOf(false) }
+    var coughCheckStatus by remember { mutableStateOf(false) }
+    var runningNoseCheckStatus by remember { mutableStateOf(false) }
+    var sneezingCheckStatus by remember { mutableStateOf(false) }
+    var noSymptomCheckStatus by remember { mutableStateOf(false) }
+
+
     var text by remember{ mutableStateOf(TextFieldValue("")) }
+
+    var shouldShowDialogForSymptom by remember{ mutableStateOf(false) }
+    var shouldShowDialogForVaccine by remember{ mutableStateOf(false) }
+
+    if (shouldShowDialogForSymptom){
+        AlertDialog(
+            onDismissRequest = {shouldShowDialogForSymptom = false},
+            title = { androidx.compose.material.Text(text = "Notice") },
+            text = { androidx.compose.material.Text(text = "You must select one symptom") },
+            confirmButton = {
+                Button(
+                    colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                        backgroundColor = AppColor
+                    ),
+                    onClick = {
+                        shouldShowDialogForSymptom = false
+                    }) {
+                    androidx.compose.material3.Text(text = "ok", color = Color.White)
+                }
+            }
+
+        )
+    }
+    if (shouldShowDialogForVaccine){
+        AlertDialog(
+            onDismissRequest = {shouldShowDialogForVaccine = false},
+            title = { androidx.compose.material.Text(text = "Notice") },
+            text = { androidx.compose.material.Text(text = "You must select two vaccine name") },
+            confirmButton = {
+                Button(
+                    colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                        backgroundColor = AppColor
+                    ),
+                    onClick = {
+                        shouldShowDialogForVaccine = false
+                    }) {
+                    androidx.compose.material3.Text(text = "ok", color = Color.White)
+                }
+            }
+
+        )
+    }
+
 
     Scaffold(
         topBar = {
@@ -107,6 +175,7 @@ fun SymptomScreen(navController: NavHostController) {
                     value = text,
                     onValueChange = { newText ->
                         text = newText
+                        nameValue = newText.text
                         nameErrorCheck = false
                     },
                     placeholder = {
@@ -123,18 +192,81 @@ fun SymptomScreen(navController: NavHostController) {
                     Row(modifier = Modifier.weight(1f)) {
                         val suggestions = listOf("2022","2021","2020","2019")
                         CustomDropDownMenu("birth year",suggestions,
-                            Modifier.padding(end = 4.dp),"birth")
+                            Modifier.padding(end = 4.dp),"birth"){
+                            birthValue = it
+                            //Log.d("SymptomScreen","birth select $it")
+                        }
                     }
                     Row(modifier = Modifier.weight(1f)) {
                         val suggestions2 = listOf("Female", "Male")
                         CustomDropDownMenu("sex",suggestions2,
-                            Modifier.padding(start = 4.dp),"sex")
+                            Modifier.padding(start = 4.dp),"sex"){
+                            sexValue = it
+                                //Log.d("SymptomScreen","sex select $it")
+
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = "Do you have any symptom? Please check your symptoms", textAlign = TextAlign.Center)
                 Spacer(modifier = Modifier.height(8.dp))
-                Symptoms()
+                //Symptoms()
+                FlowRow(
+                    mainAxisSpacing = 10.dp,
+                    crossAxisSpacing = 10.dp,
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    SymptomShow("headache"){
+                        headacheCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "headache is selected" else "headache not selected")
+                    }
+                    SymptomShow("aching muscles"){
+                        achingMusclesCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "aching muscles is selected" else "aching muscles not selected")
+                    }
+                    SymptomShow("shortness of breath"){
+                        shortnessOfBreathCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "shortness of breath is selected" else "shortness of breath not selected")
+                    }
+                    SymptomShow("diarrhea"){
+                        diarrheaCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "diarrhea is selected" else "diarrhea not selected")
+                    }
+                    SymptomShow("fatigue"){
+                        fatigueCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "fatigue is selected" else "fatigue not selected")
+                    }
+                    SymptomShow("fever or chills"){
+                        feverOrChillsCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "fever or chills is selected" else "fever or chills not selected")
+                    }
+                    SymptomShow("sore throat"){
+                        soreThroatCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "sore throat" else "sore throat not selected")
+                    }
+                    SymptomShow("loss of taste and smell"){
+                        lossOfTasteAndSmellCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "loss of taste and smell is selected" else "loss of taste and smell not selected")
+                    }
+                    SymptomShow("cough"){
+                        coughCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "cough is selected" else "cough not selected")
+                    }
+                    SymptomShow("running nose"){
+                        runningNoseCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "running nose is selected" else "running nose not selected")
+                    }
+                    SymptomShow("sneezing"){
+                        sneezingCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "headache is selected" else "headache not selected")
+                    }
+                    SymptomShow("no symptom"){
+                        noSymptomCheckStatus = it
+                        Log.d("SymptomsButtonState", if (it) "no symptom is selected" else "no symptom not selected")
+                    }
+                }
+                //Symptoms()
+
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(text = "Do you get vaccinated? Please select your vaccination details"
                         ,textAlign = TextAlign.Center)
@@ -146,7 +278,11 @@ fun SymptomScreen(navController: NavHostController) {
                             val suggestions = listOf("Unvaccined","Pfizer-BioNTexh","Sinovac"
                                 ,"Moderna","Janssen","AstraZeneca","Sputnik V","Others()")
                             CustomDropDownMenu("add vaccine",suggestions,
-                                Modifier.padding(end = 4.dp),"first")
+                                Modifier.padding(end = 4.dp),"first"){
+                                    firstVaccineValue = it
+                                   // Log.d("SymptomScreen","First vaccine select $it")
+
+                            }
                         }
                         Row(modifier = Modifier.weight(1f)) {
                             ShowDatePicker(LocalContext.current)
@@ -157,7 +293,10 @@ fun SymptomScreen(navController: NavHostController) {
                             val suggestions = listOf("Unvaccined","Pfizer-BioNTexh","Sinovac"
                                 ,"Moderna","Janssen","AstraZeneca","Sputnik V","Others()")
                             CustomDropDownMenu("add vaccine",suggestions,
-                                Modifier.padding(end = 4.dp),"second")
+                                Modifier.padding(end = 4.dp),"second"){
+                                secondVaccineValue = it
+                                //Log.d("SymptomScreen","Second vaccine select $it")
+                            }
                         }
                         Row(modifier = Modifier.weight(1f)) {
                             ShowDatePicker(LocalContext.current)
@@ -189,10 +328,53 @@ fun SymptomScreen(navController: NavHostController) {
             FloatingActionButton(
                 backgroundColor = AppColor,
                 onClick = {
-                    //if (text.text.isEmpty()){
-                       // nameErrorCheck = true
-                   // }
-                    navController.navigate(Screen.WashHandScreen.route)
+                    nameErrorCheck = nameValue == "name"
+                    birthErrorCheck = birthValue == "birth"
+                    sexErrorCheck = sexValue == "sex"
+                    firstVaccineErrorCheck = firstVaccineValue ==  "first"
+                    secondVaccineErrorCheck = secondVaccineValue == "second"
+                    nameErrorCheck = nameValue == "name"
+
+                    Log.d("SelectecAllValue" ,"$nameValue $birthValue $sexValue $firstVaccineValue $secondVaccineValue")
+                    if (
+                        !headacheCheckStatus &&
+                        !achingMusclesCheckStatus &&
+                        !shortnessOfBreathCheckStatus &&
+                        !diarrheaCheckStatus &&
+                        !fatigueCheckStatus &&
+                        !feverOrChillsCheckStatus &&
+                        !soreThroatCheckStatus &&
+                        !lossOfTasteAndSmellCheckStatus &&
+                        !coughCheckStatus &&
+                        !runningNoseCheckStatus &&
+                        !sneezingCheckStatus &&
+                        !noSymptomCheckStatus
+
+                    ){
+                        shouldShowDialogForSymptom = true
+                    }else{
+                        //shouldShowDialog.value = true
+
+                        if(!firstVaccineErrorCheck && !secondVaccineErrorCheck){
+                        }else{
+                            shouldShowDialogForVaccine = true
+                        }
+                    }
+
+
+
+
+
+
+//                    if (!nameErrorCheck &&
+//                        !birthErrorCheck &&
+//                        !sexErrorCheck &&
+//                        !firstVaccineErrorCheck &&
+//                        !secondVaccineErrorCheck){
+//
+//                        navController.navigate(Screen.WashHandScreen.route)
+//                    }
+
                 }
             ) {
                 Icon(
@@ -235,38 +417,25 @@ fun DropDownButton(showText:String, suggestions : List<String>){
 
 @Composable
 fun Symptoms(){
-    FlowRow(
-        mainAxisSpacing = 10.dp,
-        crossAxisSpacing = 10.dp,
-        modifier = Modifier.fillMaxWidth()
-    ){
-        SymptomShow("headache")
-        SymptomShow("aching muscles")
-        SymptomShow("shortness of breath")
-        SymptomShow("diarrhea")
-        SymptomShow("fatigue")
-        SymptomShow("fever or chills")
-        SymptomShow("sore throat")
-        SymptomShow("loss of taste and smell")
-        SymptomShow("cough")
-        SymptomShow("running nose")
-        SymptomShow("sneezing")
-        SymptomShow("no symptom")
-    }
+
 }
 
 
 @Composable
-fun SymptomShow(symptom:String){
+fun SymptomShow(symptom:String,giveButtonState:(buttonSelectState:Boolean)->Unit){
     var buttonValue by remember{ mutableStateOf(false) }
     if(buttonValue){
-        Button(onClick = {
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = AppColor),
+            onClick = {
             buttonValue = false
         }) {
             Text(text = symptom)
         }
     }else{
         OutlinedButton(
+            border = BorderStroke(1.dp,color = AppColor),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColor,),
             //modifier = Modifier.clip(),
             onClick = {
                 buttonValue = true
@@ -275,6 +444,7 @@ fun SymptomShow(symptom:String){
             Text(text = symptom)
         }
     }
+    giveButtonState(buttonValue)
 }
 
 @Composable
@@ -333,7 +503,7 @@ fun ShowDatePicker(context: Context){
 }
 
 @Composable
-fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,callerName:String) {
+fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,callerName:String, selectReturn:(String)->Unit ) {
 
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf("") }
@@ -360,9 +530,7 @@ fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,
                 ),
             value = selectedText,
             onValueChange = { selectedText = it
-                                //when(callerName){
-                                 //    "birth" -> birthErrorCheck
-                                //}
+                                selectReturn(it)
                             },
             modifier = Modifier
                 .height(60.dp)
@@ -385,6 +553,7 @@ fun CustomDropDownMenu(label:String,suggestions: List<String>,modifier:Modifier,
             suggestions.forEach { label ->
                 DropdownMenuItem(onClick = {
                     selectedText = label
+                    selectReturn(label)
                     expanded = false
                 }) {
                     Text(text = label)
