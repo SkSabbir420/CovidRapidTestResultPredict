@@ -22,7 +22,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.DisposeScreen
-import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
 import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme

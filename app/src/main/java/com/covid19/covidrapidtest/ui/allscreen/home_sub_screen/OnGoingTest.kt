@@ -20,7 +20,6 @@ import androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCal
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
-import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.OngoingSymptomShow
 import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.viewmodels.OngoingSyntromShowViewModel
@@ -19,8 +20,8 @@ import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.vi
 
 @Composable
 fun OngoingSymptomShow(){
-    val viewModel: OngoingSyntromShowViewModel  = OngoingSyntromShowViewModel(LocalContext.current)
 
+    val viewModel = OngoingSyntromShowViewModel(LocalContext.current)
     Column {
         SetData(viewModel)
     }
@@ -67,23 +68,11 @@ fun SetData(viewModel: OngoingSyntromShowViewModel) {
 }
 
 @Composable
-fun ShowLazyList(foods: MutableList<OngoingSymptomFrom>) {
+fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>) {
     LazyColumn {
-        items(foods) { food ->
-            CardItem(food)
+        items(SymptomFromDatas) { symptomFromData ->
+            TestList(SymptomFromData = symptomFromData)
         }
     }
 }
 
-@Composable
-fun CardItem(food: OngoingSymptomFrom) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(10.dp)
-    ) {
-        Text(text = food.nameValue)
-
-    }
-}
