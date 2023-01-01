@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import androidx.navigation.NavController
 import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.OngoingTestScreen
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.OngoingSymptomShow
 import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
@@ -67,7 +69,8 @@ fun OnGoingTest(navController: NavController){
 
 
         content = {
-            OngoingTestScreen()
+            //OngoingTestScreen() //comment by sabbir 1-1-2023
+            OngoingSymptomShow()
         }
     )
 
