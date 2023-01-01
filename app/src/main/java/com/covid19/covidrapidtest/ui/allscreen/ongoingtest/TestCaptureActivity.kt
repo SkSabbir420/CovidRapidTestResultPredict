@@ -48,6 +48,11 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
         val photoFragment = PhotoFragment()
         photoFragment.arguments = bundle
 
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.res_photo_layout,photoFragment )
+            .commit()
+
        // uniqueKey = intent.getStringExtra("nodeUniqueKey").toString()
 
         activityMainBinding = ActivityCaptureTestBinding.inflate(layoutInflater)
@@ -60,7 +65,7 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.res_photo_layout,photoFragment )
-                .addToBackStack(null)
+                //.addToBackStack(null)
                 .commit()
         }
 
@@ -75,7 +80,7 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.res_photo_layout, PhotoFragment())
-                    .addToBackStack(null)
+                    //.addToBackStack(null)
                     .commit()
 
         }
@@ -106,7 +111,7 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.res_photo_layout, imageFragment)
-                .addToBackStack(null)
+                //.addToBackStack(null)
                 .commit()
         }
     }
