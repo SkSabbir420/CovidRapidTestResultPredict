@@ -76,7 +76,10 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
 
 
         content = {
-            PdfContentScreen()
+            //PdfContentScreen()
+            if (key != null) {
+                FinalResultShowInPdf(navController,key)
+            }
         }
     )
 }

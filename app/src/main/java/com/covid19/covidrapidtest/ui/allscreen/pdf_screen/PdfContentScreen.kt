@@ -21,7 +21,7 @@ import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.mo
 import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
-fun PdfContentScreen() {
+fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +45,7 @@ fun PdfContentScreen() {
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Negative", color = AppColor, fontSize = 16.sp)
+                        Text(text = symptomFromData.testResult, color = AppColor, fontSize = 16.sp)
                         Text(text = "16.12.2022 - 4:45 PM")
                     }
                 }
