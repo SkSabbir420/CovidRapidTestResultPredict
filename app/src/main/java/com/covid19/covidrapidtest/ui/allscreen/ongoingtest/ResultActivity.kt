@@ -68,13 +68,15 @@ class ResultActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val key = getIntent().getStringExtra("key")
+        Log.d("ResultActivityGetkey","$key")
 
         //setContentView(R.layout.activity_result)
         setContent {
             //DisposeScreen()
             val context = LocalContext.current
             val navController = rememberNavController()
-            PdfNavGraph(navController = navController,context)
+            PdfNavGraph(navController = navController,context,key)
         }
 
 

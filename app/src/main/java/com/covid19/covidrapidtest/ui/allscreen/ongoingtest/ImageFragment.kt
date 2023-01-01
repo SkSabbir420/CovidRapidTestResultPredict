@@ -202,8 +202,10 @@ class ImageFragment : Fragment() {
 
             if (bitmap!= null) {
                 val resultActivity = ResultActivity()
+
                 resultActivity.setBitMap(bitmap)
                 val intent = Intent(context,resultActivity::class.java)
+                intent.putExtra("key",uniqueKey)
                 startActivity(intent)
             }
         }

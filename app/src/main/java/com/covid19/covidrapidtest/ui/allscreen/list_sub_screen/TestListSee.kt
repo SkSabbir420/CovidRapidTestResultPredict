@@ -87,7 +87,7 @@ fun TestListSee(navController: NavController,SymptomFromData: OngoingSymptomFrom
                    ),
                    onClick = {
                        // context.startActivity(Intent(context,TestCaptureActivity::class.java))
-                       navController.navigate(Screen.PdfShowScreen.route)
+                       navController.navigate("${Screen.PdfShowScreen.route}/${SymptomFromData.nodeUniqueKey}")
                    }
                ) {
                    Text(text = "review", color = Color.White)

@@ -2,19 +2,28 @@ package com.covid19.covidrapidtest.ui.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import com.covid19.covidrapidtest.QRCodeReaderActivity
 import com.covid19.covidrapidtest.ResultShowActivity
 import com.covid19.covidrapidtest.RetakePictureActivity
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.ActionButtonScreen
 import com.covid19.covidrapidtest.ui.allscreen.home_sub_screen.OnGoingTest
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.pdf_screen.PdfShowScreen
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.*
 import com.covid19.covidrapidtest.ui.allscreen.screens.HomeScreen
 import com.covid19.covidrapidtest.ui.allscreen.screens.ListScreen
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun BottomNavGraph(navController: NavHostController,context:Context) {
@@ -32,8 +41,22 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
         composable(route = Screen.OnGoingTest.route) {
             OnGoingTest(navController)
         }
-        composable(route = Screen.PdfShowScreen.route) {
-            PdfShowScreen(navController,Screen.ListScreen.route)
+        composable(route = "${Screen.PdfShowScreen.route}/{key}", arguments = listOf(
+            navArgument("key"){
+                type = NavType.StringType
+                //nullable = false
+                //defaultValue = -1
+            }
+        )
+        ) { NavBackStackEntry->
+            val key = requireNotNull(NavBackStackEntry.arguments).getString("key")
+
+            //val deviceID = Settings.Secure.getString(LocalContext.current.contentResolver, Settings.Secure.ANDROID_ID)
+            //val retriveData = FirebaseFirestore.getInstance().collection("covidTestDatabase")
+                //.document(deviceID).collection("finalTestResult").document("$key").get()
+            //val finaldata =  retriveData.toObject<OngoingSymptomFrom>()
+
+            PdfShowScreen(navController,Screen.ListScreen.route,key)
         }
         composable(route = Screen.Main.route) {
             MainScreen()

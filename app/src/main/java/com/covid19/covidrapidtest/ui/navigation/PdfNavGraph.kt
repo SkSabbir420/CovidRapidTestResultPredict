@@ -15,7 +15,7 @@ import com.covid19.covidrapidtest.ui.allscreen.pdf_screen.PdfShowScreen
 import com.covid19.covidrapidtest.ui.allscreen.splash_screen.AnimatedSplashScreen
 
 @Composable
-fun PdfNavGraph(navController: NavHostController,context:Context) {
+fun PdfNavGraph(navController: NavHostController,context:Context,key:String?) {
     NavHost(
         navController = navController,
         startDestination = Screen.DisposeScreen.route
@@ -24,7 +24,7 @@ fun PdfNavGraph(navController: NavHostController,context:Context) {
             DisposeScreen(navController)
         }
         composable(route = Screen.PdfShowScreen.route) {
-            PdfShowScreen(navController,Screen.DisposeScreen.route)
+            PdfShowScreen(navController, Screen.DisposeScreen.route,key)
         }
 
         composable(route = Screen.OnGoingTest.route) {

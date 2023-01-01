@@ -14,15 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.covid19.covidrapidtest.R
-import com.covid19.covidrapidtest.ui.navigation.Screen
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
-fun PdfContentScreen(){
+fun PdfContentScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
