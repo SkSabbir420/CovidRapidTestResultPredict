@@ -20,6 +20,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.FragmentImageBinding
+import com.covid19.covidrapidtest.ui.allscreen.common.fromobject.SymptomFrom
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
@@ -163,10 +168,25 @@ class ImageFragment : Fragment() {
             try {
                 GlobalScope.launch {
 
-                    curFile?.let {
+                    val retriveData = FirebaseFirestore.getInstance().collection("covidTestDatabase")
+                        .document(deviceID).collection("fromFillUp").document("$uniqueKey").get().await()
+                    val finaldata =  retriveData.toObject<OngoingSymptomFrom>()
+                    Log.d("MainActivityfinalData","$finaldata")
 
+
+                    curFile?.let {
                         val image = imageRef.child("covidTestStorage").child(deviceID).child("$uniqueKey.jpg").putFile(it).await()
                         image.storage.downloadUrl.addOnSuccessListener { uri ->
+                            if (finaldata != null){
+                                finaldata.testResult = classify.toString()
+                                finaldata.testResultImageUrl = uri.toString()
+                                FirebaseFirestore.getInstance().collection("covidTestDatabase")
+                                    .document(deviceID).collection("finalTestResult").document("$uniqueKey")
+                                    .set(finaldata)
+                                Firebase.firestore.collection("covidTestDatabase").document(deviceID).collection("fromFillUp")
+                                    .document("$uniqueKey").delete()
+
+                            }
                             Log.d("MainActivity","$uniqueKey")
                             Log.d("MainActivity",uri.toString())
                         }

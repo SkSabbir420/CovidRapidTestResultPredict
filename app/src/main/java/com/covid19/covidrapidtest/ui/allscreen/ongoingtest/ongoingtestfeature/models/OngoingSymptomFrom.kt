@@ -3,9 +3,13 @@ package com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.m
 //data class Food(var Image: String? = null, var Name: String? = null)
 
 data class  OngoingSymptomFrom(
+
     var deviceId:String = "DefaultDeviceId",
     var nodeUniqueKey:String = "DefaultNodeKey",
-    var lotNumber:String ="1234",
+    var deviceIdLocation:String = "DefaultLocation",
+    var testResultImageUrl:String = "DefaultUrl",
+    var testResult:String = "DefaultTest",
+    var lotNumber:String ="DefaultLotNumber",
     var createTime:String ="DefaultTime",
     var nameValue:String ="DefaultName",
     var birthValue:String ="DefaultBirth",
@@ -13,6 +17,9 @@ data class  OngoingSymptomFrom(
     var firstVaccineValue:String ="DefaultFirstVaccine",
     var secondVaccineValue:String ="DefaultSecondVaccine",
     var thirdVaccineValue:String ="DefaultThirdVaccine",
+    var firstVaccineDate:String ="DefaultFirstVaccineDate",
+    var secondVaccineDate:String ="DefaultSecondVaccineDate",
+    var thirdVaccineDate:String ="DefaultThirdVaccineDate",
     var headacheCheckStatus:Boolean =false,
     var achingMusclesCheckStatus:Boolean =false,
     var shortnessOfBreathCheckStatus:Boolean =false,
@@ -25,4 +32,5 @@ data class  OngoingSymptomFrom(
     var runningNoseCheckStatus:Boolean =false,
     var sneezingCheckStatus:Boolean =false,
     var noSymptomCheckStatus:Boolean =false
+
 )
