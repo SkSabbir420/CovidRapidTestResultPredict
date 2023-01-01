@@ -99,7 +99,8 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
     }
 
     override fun onFragmentInteraction(bitmap: Bitmap?, uniqueKey:String?) {
-        if (bitmap != null && uniqueKey != null) {
+        //if (bitmap != null && uniqueKey != null) { //ToDo comment here
+        if (bitmap != null) {
             val imageFragment = ImageFragment()
             imageFragment.imageSetupFragment(bitmap,uniqueKey)
             supportFragmentManager

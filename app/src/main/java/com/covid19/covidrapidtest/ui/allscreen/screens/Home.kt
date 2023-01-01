@@ -113,7 +113,7 @@ fun HomeScreen(navController : NavController) {
                         modifier = Modifier
                             .padding(24.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Purple40)
+                            .background(Color.Black)
                     ) {
                         Column(
                             modifier = Modifier.padding(8.dp),

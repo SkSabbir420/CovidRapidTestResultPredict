@@ -67,7 +67,10 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
         val view = inflater.inflate(R.layout.fragment_photo, container, false)
 
         val bundle = this.arguments
-        uniqueKey = bundle!!.getString("nodeUniqueKey") //ToDo here crash
+
+        if (bundle != null) {
+            uniqueKey = bundle.getString("nodeUniqueKey")
+        }
 
         //ButterKnife.bind(this, view)
         surfaceView = view.findViewById<View>(R.id.camera_preview_surface) as SurfaceView

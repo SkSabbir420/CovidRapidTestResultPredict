@@ -46,7 +46,8 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = symptomFromData.testResult, color = AppColor, fontSize = 16.sp)
-                        Text(text = "16.12.2022 - 4:45 PM")
+                        //Text(text = "16.12.2022 - 4:45 PM")
+                        Text(text = symptomFromData.createTime)
                     }
                 }
 
@@ -109,7 +110,7 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                         Text(text = "Gender")
                     }
                     Row(modifier = Modifier.fillMaxWidth()){
-                        Text(text = "Male")
+                        Text(text = symptomFromData.sexValue)
                     }
 
                 }
@@ -141,7 +142,8 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                         Text(text = "LOT")
                     }
                     Row(modifier = Modifier.fillMaxWidth()){
-                        Text(text = "S0221101701")
+                        //Text(text = "S0221101701")
+                        Text(text = symptomFromData.lotNumber)
                     }
 
                 }
@@ -173,7 +175,8 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                         Text(text = "Test Number")
                     }
                     Row(modifier = Modifier.fillMaxWidth()){
-                        Text(text = "bwxdzStx")
+                        //Text(text = "bwxdzStx")
+                        Text(text = symptomFromData.nodeUniqueKey)
                     }
                 }
 

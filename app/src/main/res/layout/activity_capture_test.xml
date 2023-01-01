@@ -24,7 +24,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:text="Retake"
-                android:background="@color/black"
+                android:background="@drawable/custom_button_black_color"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

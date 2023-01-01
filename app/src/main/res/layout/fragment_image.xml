@@ -37,7 +37,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@color/app_color"
+            android:background="@drawable/custom_button_app_color"
             android:textColor="@color/white"
             android:text="Continue"
             app:layout_constraintBottom_toBottomOf="parent"
