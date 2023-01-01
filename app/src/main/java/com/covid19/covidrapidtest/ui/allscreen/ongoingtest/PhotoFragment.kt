@@ -13,7 +13,6 @@ import android.os.Environment
 import android.util.Log
 import android.view.*
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -30,6 +29,7 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
     var surfaceView: SurfaceView? = null
     var surfaceHolder: SurfaceHolder? = null
     var previewing = false
+    var uniqueKey:String? = null
 
    private lateinit var fragmentBinding: FragmentPhotoBinding
 
@@ -47,7 +47,7 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
     var previewSizeOptimal: Camera.Size? = null
 
     interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(bitmap: Bitmap?)
+        fun onFragmentInteraction(bitmap: Bitmap?,uniqueKey:String?)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +65,10 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
         Log.d("MainActivityD","Start onCreateview2")
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_photo, container, false)
+
+        val bundle = this.arguments
+        uniqueKey = bundle!!.getString("nodeUniqueKey")
+
         //ButterKnife.bind(this, view)
         surfaceView = view.findViewById<View>(R.id.camera_preview_surface) as SurfaceView
         surfaceHolder = surfaceView!!.holder
@@ -77,6 +81,8 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
 
         makephoto.setOnClickListener {
             Log.d("MainActivityD","Call makephotobutton")
+
+
             if (camera != null) {
                 camera!!.takePicture(
                     myShutterCallback,
@@ -283,7 +289,7 @@ class PhotoFragment() : Fragment(), SurfaceHolder.Callback {
 
             //pass to another fragment
             if (mListener != null) {
-                if (croppedBitmap != null) mListener!!.onFragmentInteraction(croppedBitmap)
+                if (croppedBitmap != null) mListener!!.onFragmentInteraction(croppedBitmap,uniqueKey)
             }
             if (camera != null) {
                 camera.startPreview()

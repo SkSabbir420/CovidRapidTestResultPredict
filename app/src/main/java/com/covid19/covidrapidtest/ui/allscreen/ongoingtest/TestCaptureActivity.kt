@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.ActivityCaptureTestBinding
+
 
 //import butterknife.ButterKnife
 //import butterknife.OnClick
@@ -36,10 +36,20 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
 
     private lateinit var activityMainBinding:ActivityCaptureTestBinding
 
+    //lateinit var uniqueKey:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
         //ButterKnife.bind(this)
+
+        val bundle = Bundle()
+        bundle.putString("nodeUniqueKey", intent.getStringExtra("nodeUniqueKey").toString())
+        val photoFragment = PhotoFragment()
+        photoFragment.arguments = bundle
+
+       // uniqueKey = intent.getStringExtra("nodeUniqueKey").toString()
+
         activityMainBinding = ActivityCaptureTestBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
@@ -49,7 +59,7 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
         }else{
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.res_photo_layout, PhotoFragment())
+                .replace(R.id.res_photo_layout,photoFragment )
                 .addToBackStack(null)
                 .commit()
         }
@@ -71,6 +81,10 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
         }
     }
 
+//    fun getCovidUniqueKey():String{
+//        return uniqueKey
+//    }
+
 
 
     private fun checkPermissions() {
@@ -84,10 +98,10 @@ class TestCaptureActivity : AppCompatActivity(), PhotoFragment.OnFragmentInterac
         flagPermissions = true
     }
 
-    override fun onFragmentInteraction(bitmap: Bitmap?) {
-        if (bitmap != null) {
+    override fun onFragmentInteraction(bitmap: Bitmap?, uniqueKey:String?) {
+        if (bitmap != null && uniqueKey != null) {
             val imageFragment = ImageFragment()
-            imageFragment.imageSetupFragment(bitmap)
+            imageFragment.imageSetupFragment(bitmap,uniqueKey)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.res_photo_layout, imageFragment)

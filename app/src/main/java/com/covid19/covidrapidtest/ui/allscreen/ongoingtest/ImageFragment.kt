@@ -60,6 +60,7 @@ class ImageFragment : Fragment() {
     // private var imageUri: Uri? = null
     //    private var storagePostPicRef: StorageReference? = null
     private var bitmap: Bitmap? = null
+    private var uniqueKey: String? = null
     protected var tflite: Interpreter? = null
     private var imageSizeX = 0
     private var imageSizeY = 0
@@ -78,9 +79,10 @@ class ImageFragment : Fragment() {
     //var resPhotoSize: TextView? = null
     private lateinit var fragmentBindingImage: FragmentImageBinding
 
-    fun imageSetupFragment(bitmap: Bitmap?) {
-        if (bitmap != null) {
+    fun imageSetupFragment(bitmap: Bitmap?,uniqueKey:String?) {
+        if (bitmap != null && uniqueKey != null) {
             this.bitmap = bitmap
+            this.uniqueKey = uniqueKey
         }
     }
 
@@ -160,9 +162,12 @@ class ImageFragment : Fragment() {
         goToResultActivity.setOnClickListener {
             try {
                 GlobalScope.launch {
+
                     curFile?.let {
-                        val image = imageRef.child("covidTestStorage").child(deviceID).child("n8QuSOavtYYQKP0fxL1e.jpg").putFile(it).await()
+
+                        val image = imageRef.child("covidTestStorage").child(deviceID).child("$uniqueKey.jpg").putFile(it).await()
                         image.storage.downloadUrl.addOnSuccessListener { uri ->
+                            Log.d("MainActivity","$uniqueKey")
                             Log.d("MainActivity",uri.toString())
                         }
 
