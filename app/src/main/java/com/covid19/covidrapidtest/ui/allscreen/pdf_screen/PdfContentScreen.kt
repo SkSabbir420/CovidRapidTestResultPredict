@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.theme.AppColor
@@ -212,14 +213,18 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(
-                            modifier = Modifier
-                                .width(60.dp)
-                                .height(60.dp),
-                            painter = painterResource(
-                                id = R.drawable.negative_result
-                            ),
+//                        Image(
+//                            modifier = Modifier
+//                                .width(60.dp)
+//                                .height(60.dp),
+//                            painter = painterResource(
+//                                id = R.drawable.negative_result
+//                            ),
+//                            contentDescription = null,
+//                        )
+                        Image(painter = rememberImagePainter(data =symptomFromData.testResultImageUrl ),
                             contentDescription = null,
+                            modifier = Modifier.width(60.dp).height(60.dp),
                         )
                     }
                 }
