@@ -2,11 +2,12 @@ package com.covid19.covidrapidtest.ui.allscreen.ongoingtest
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +24,22 @@ import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.BoxIntroScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun DisposeScreen(navController: NavController){
+    var showSreen by remember{ mutableStateOf(false)}
+    LaunchedEffect(key1 = true) {
+        delay(6000)
+        showSreen = true
+    }
+    if (!showSreen){
+       Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+           CircularProgressIndicator()
+       }
+    }
+
+    if (showSreen){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,6 +85,7 @@ fun DisposeScreen(navController: NavController){
 
         }
 
+    }
     }
 }
 
