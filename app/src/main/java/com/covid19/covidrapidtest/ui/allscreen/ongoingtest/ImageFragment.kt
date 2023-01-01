@@ -13,14 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.compose.setContent
-import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.databinding.FragmentImageBinding
-import com.covid19.covidrapidtest.ui.allscreen.common.fromobject.SymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -160,6 +156,15 @@ class ImageFragment : Fragment() {
                 image height:${bitmap!!.height}
                 """.trimIndent()
             //imagePhotoSize.text = info
+
+        }
+
+        val goBackToFragmentPhoto = view.findViewById<Button>(R.id.btn_retack_photo_back)
+        goBackToFragmentPhoto.setOnClickListener {
+
+            val intent = Intent(activity, TestCaptureActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent)
 
         }
 

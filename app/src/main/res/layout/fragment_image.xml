@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ImageFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-<!--        <TextView-->
-<!--            android:id="@+id/res_photo_size"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/res_photo_size"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <ImageView
             android:id="@+id/res_photo"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="50dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginBottom="90dp"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@+id/btn_go_result_activity"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -33,17 +33,33 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <Button
+            android:id="@+id/btn_retack_photo_back"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_button_black_color"
+            android:text="Retake"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_go_result_activity"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Button
             android:id="@+id/btn_go_result_activity"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginBottom="25dp"
             android:layout_gravity="center"
             android:background="@drawable/custom_button_app_color"
-            android:textColor="@color/white"
             android:text="Continue"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/btn_retack_photo_back" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
