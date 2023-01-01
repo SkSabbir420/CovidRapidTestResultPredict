@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,12 +28,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.Purple80
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 @Composable
-fun TestListSee(navController: NavController){
+fun TestListSee(navController: NavController,SymptomFromData: OngoingSymptomFrom){
     Card(
         modifier = Modifier.padding(16.dp),
         //,
@@ -49,22 +53,26 @@ fun TestListSee(navController: NavController){
 
        ) {
            Row(modifier = Modifier.fillMaxWidth(.3f)){
-               Column(modifier = Modifier.fillMaxWidth().padding(4.dp)
+               Column(modifier = Modifier
+                   .fillMaxWidth()
+                   .padding(4.dp)
                    , verticalArrangement = Arrangement.Center,
                    horizontalAlignment = Alignment.CenterHorizontally
                ) {
-                   Text(text = "Sabbir Test", color = AppColor)
-                   Text(text = "Male - 22 years old",color = Color.Black, fontSize = 10.sp)
+                   Text(text = "${SymptomFromData.nameValue} Test", color = AppColor)
+                   Text(text = "${SymptomFromData.sexValue} - 22 years old",color = Color.Black, fontSize = 10.sp)
                }
 
            }
            Row(modifier = Modifier.fillMaxWidth(.3f)){
-               Column(modifier = Modifier.fillMaxWidth().padding(4.dp)
+               Column(modifier = Modifier
+                   .fillMaxWidth()
+                   .padding(4.dp)
                , verticalArrangement = Arrangement.Center,
                    horizontalAlignment = Alignment.CenterHorizontally
                ) {
                    Text(text = "Date", color = AppColor)
-                   Text(text = "22/12/2022",color = Color.Black, fontSize = 10.sp)
+                   Text(text = "${SymptomFromData.createTime.subSequence(0,10)}",color = Color.Black, fontSize = 10.sp)
                }
 
            }
@@ -85,12 +93,20 @@ fun TestListSee(navController: NavController){
                    Text(text = "review", color = Color.White)
                }
            }
+           IconButton(onClick = {
+               FirebaseFirestore.getInstance().collection("covidTestDatabase")
+                   .document(SymptomFromData.deviceId).collection("finalTestResult")
+                   .document(SymptomFromData.nodeUniqueKey).delete()
+
+           }) {
                Icon(
                    tint = Color.Black,
                    modifier = Modifier,
                    imageVector = Icons.Outlined.Delete,
                    contentDescription =""
                )
+           }
+
 
        }
     }
@@ -99,5 +115,5 @@ fun TestListSee(navController: NavController){
 @Preview
 @Composable
 fun PreviewTestList(){
-    TestListSee(navController = NavHostController(LocalContext.current))
+    //TestListSee(navController = NavHostController(LocalContext.current))
 }

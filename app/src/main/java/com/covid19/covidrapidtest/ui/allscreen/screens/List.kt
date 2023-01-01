@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.R
-import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.AllResultSeeScreen
+import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.allResultShowfeature.FinalResultShowFeature
 import com.covid19.covidrapidtest.ui.navigation.Screen
 
 @Composable
@@ -56,7 +56,8 @@ fun ListScreen(navController:NavController) {
             )
         },
         content = {
-            AllResultSeeScreen(navController)
+            //AllResultSeeScreen(navController)
+            FinalResultShowFeature(navController)
         }
     )
 }
