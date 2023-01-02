@@ -12,6 +12,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
 fun MainScreen() {
@@ -37,7 +38,7 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination){
         BottomNavigation (
             backgroundColor = Color.White,
-            contentColor = Color(0xFF27A266)
+            contentColor = AppColor
         ){
 
             screens.forEach { screen ->

@@ -56,7 +56,7 @@ fun CountDownIndicator(
                 modifier = Modifier
                     .height(size.dp)
                     .width(size.dp),
-                color = Color.Green,
+                color = Color.Gray,
                 strokeWidth = (stroke-6).dp,
             )
 

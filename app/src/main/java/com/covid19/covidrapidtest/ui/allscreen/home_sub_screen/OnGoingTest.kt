@@ -5,23 +5,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.unusedapprestrictions.IUnusedAppRestrictionsBackportCallback.Default
 import androidx.navigation.NavController
-import com.covid19.covidrapidtest.MyTopBar
 import com.covid19.covidrapidtest.R
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.OngoingSymptomShow
-import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 

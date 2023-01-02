@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.TestListSee
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
+import com.covid19.covidrapidtest.ui.theme.AppColor
 
 
 @Composable
@@ -35,7 +37,9 @@ fun SetData(viewModel: FinalResultShowInPdfViewModel,navController: NavControlle
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier
+                    .fillMaxWidth(.25f)
+                    .fillMaxHeight(.25f), color = AppColor, strokeWidth = 8.dp)
             }
         }
         is DataState.Success -> {

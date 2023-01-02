@@ -79,7 +79,7 @@ fun TestListSee(navController: NavController, symptomFromData: OngoingSymptomFro
            ){
                Button(modifier = Modifier.padding(4.dp),
                    colors = ButtonDefaults.buttonColors(
-                       containerColor = Green
+                       containerColor = AppColor
                    ),
                    onClick = {
                        // context.startActivity(Intent(context,TestCaptureActivity::class.java))

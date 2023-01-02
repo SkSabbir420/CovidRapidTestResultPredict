@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.covid19.covidrapidtest.ui.navigation.Screen
+import com.covid19.covidrapidtest.ui.theme.AppColor
 import com.covid19.covidrapidtest.ui.theme.Purple40
 import com.example.cameraxcompose.camerax.CameraX
 
@@ -162,7 +163,7 @@ fun MainScreen(navController: NavController) {
                         Icon(imageVector = Icons.Default.Home,
                             contentDescription = null)
                     },
-                    selectedContentColor = if (bottomState=="Home") Purple40 else Color.Black
+                    selectedContentColor = if (bottomState=="Home") AppColor else Color.Black
                 )
                 BottomNavigationItem(
                     selected = bottomState == "List",
@@ -172,7 +173,7 @@ fun MainScreen(navController: NavController) {
                         Icon(imageVector = Icons.Default.List,
                             contentDescription = null)
                     },
-                    selectedContentColor = if (bottomState=="List") Purple40 else Color.Black
+                    selectedContentColor = if (bottomState=="List") AppColor else Color.Black
                 )
             }
         }

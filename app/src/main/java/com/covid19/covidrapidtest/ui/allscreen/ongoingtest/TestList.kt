@@ -34,8 +34,11 @@ import java.time.LocalDateTime
 fun TestList(symptomFromData: OngoingSymptomFrom){
 
     val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
+    Log.d("VVVVV",currentTimeMinus15.toString())
     val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
+    Log.d("VVVVV",fromCreateTime.toString())
     val result = fromCreateTime.isBefore(currentTimeMinus15)
+    Log.d("VVVVV",result.toString())
 
 //    if(result){
 //        println(result)
@@ -61,7 +64,8 @@ fun TestList(symptomFromData: OngoingSymptomFrom){
         Spacer(modifier = Modifier.weight(1.0f))
         if (result){
         Button(colors = ButtonDefaults.buttonColors(
-            containerColor = Green
+            containerColor = Color.Gray
+            //containerColor = Color.Cyan
         ),
             onClick = {
                     val intent = Intent(context, TestCaptureActivity::class.java)
@@ -80,7 +84,9 @@ fun TestList(symptomFromData: OngoingSymptomFrom){
                 contentDescription =""
             )
         }else{
-            Text(text = "left ${fromCreateTime.minute - currentTimeMinus15.minute} minute", color = Color.White,
+            val diff = fromCreateTime.minute - currentTimeMinus15.minute
+            Log.d("VVVVV",diff.toString())
+            Text(text = "left ${diff} minute", color = Color.White,
             modifier = Modifier.padding(16.dp))
         }
 

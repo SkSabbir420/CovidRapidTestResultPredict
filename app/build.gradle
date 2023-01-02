@@ -170,4 +170,7 @@ dependencies {
 
     //coil image
     implementation 'io.coil-kt:coil-compose:1.4.0'
+
+    //status bar color change
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
 }
