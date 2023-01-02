@@ -73,7 +73,7 @@ fun StartNavGraphFromLotNumber(navController: NavHostController,context:Context)
             StepScreen(navController,sharedViewModel)
         }
         composable(route = Screen.TimerScreen.route){
-            TimerScreen(navController)
+            TimerScreen(navController,sharedViewModel)
         }
         composable(route = Screen.WashHandScreen.route) {
             WashHandScreen(navController)

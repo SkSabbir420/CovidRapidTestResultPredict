@@ -15,6 +15,7 @@ import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.viewmodels.OngoingSyntromShowViewModel
+import com.covid19.covidrapidtest.ui.theme.AppColor
 import java.time.LocalDateTime
 
 
@@ -36,7 +37,9 @@ fun SetData(viewModel: OngoingSyntromShowViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier
+                    .fillMaxWidth(.25f)
+                    .fillMaxHeight(.25f), color = AppColor, strokeWidth = 8.dp)
             }
         }
         is DataState.Success -> {
@@ -49,6 +52,17 @@ fun SetData(viewModel: OngoingSyntromShowViewModel) {
             ) {
                 Text(
                     text = result.message,
+                    fontSize = MaterialTheme.typography.h5.fontSize,
+                )
+            }
+        }
+        is DataState.Empty -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "You don't have any ongoing test.",
                     fontSize = MaterialTheme.typography.h5.fontSize,
                 )
             }

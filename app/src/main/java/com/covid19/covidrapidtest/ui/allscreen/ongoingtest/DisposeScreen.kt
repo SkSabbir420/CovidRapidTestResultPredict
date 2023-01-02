@@ -35,7 +35,9 @@ fun DisposeScreen(navController: NavController){
     }
     if (!showSreen){
        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-           CircularProgressIndicator()
+           CircularProgressIndicator(modifier = Modifier
+               .fillMaxWidth(.25f)
+               .fillMaxHeight(.25f), color = AppColor, strokeWidth = 8.dp)
        }
     }
 

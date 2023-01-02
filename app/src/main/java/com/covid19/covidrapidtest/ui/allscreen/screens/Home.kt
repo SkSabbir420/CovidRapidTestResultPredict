@@ -129,6 +129,7 @@ fun HomeScreen(navController : NavController) {
                                 onClick = {
                                     //navController.navigate("CameraActivity")
                                    // navController.navigate(Screen.CameraActivity.route)
+                                    //navController.popBackStack()
                                     navController.navigate(Screen.QRCodeReaderActivity.route)
                                     //navController.navigate(Screen.LotNumberScreen.route)
                                     //context.startActivity(Intent(context,CameraActivity::class.java))

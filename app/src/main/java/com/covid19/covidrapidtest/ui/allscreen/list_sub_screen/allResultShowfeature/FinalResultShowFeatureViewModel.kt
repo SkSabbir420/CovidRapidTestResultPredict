@@ -37,6 +37,8 @@ class FinalResultShowFeatureViewModel(context:Context) : ViewModel() {
                         }
                     }
                     response.value = DataState.Success(tempList)
+                }else{
+                    response.value = DataState.Empty
                 }
 
             }

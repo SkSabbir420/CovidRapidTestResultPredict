@@ -37,10 +37,13 @@ class OngoingSyntromShowViewModel(context:Context) : ViewModel() {
                         }
                     }
                     response.value = DataState.Success(tempList)
+                }else{
+                    response.value = DataState.Empty
                 }
 
             }
             .addOnFailureListener {
+                response.value = DataState.Failure(it.message.toString())
                 Log.d("RetriveData",it.toString())
 
             }

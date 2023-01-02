@@ -74,7 +74,7 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
 //            context.startActivity(Intent(context, CameraActivity::class.java))
 //        }
         composable(route = Screen.QRCodeReaderActivity.route) {
-            navController.popBackStack()
+            //navController.popBackStack()
             context.startActivity(Intent(context, QRCodeReaderActivity::class.java))
         }
         composable(route = Screen.LotNumberScreen.route) {
@@ -90,9 +90,9 @@ fun BottomNavGraph(navController: NavHostController,context:Context) {
         composable(route = Screen.StepScreen.route) {
             //StepScreen(navController) //comment by sabbir 31
         }
-        composable(route = Screen.TimerScreen.route){
-            TimerScreen(navController)
-        }
+        //composable(route = Screen.TimerScreen.route){ ///ToDo I don't know it is use or not
+            //TimerScreen(navController)
+        //}
         composable(route = Screen.WashHandScreen.route) {
             WashHandScreen(navController)
         }

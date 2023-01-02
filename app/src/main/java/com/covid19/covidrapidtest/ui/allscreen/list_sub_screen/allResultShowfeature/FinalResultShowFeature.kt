@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.TestListSee
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
+import com.covid19.covidrapidtest.ui.theme.AppColor
 
 
 @Composable
@@ -35,7 +36,10 @@ fun SetData(viewModel: FinalResultShowFeatureViewModel,navController: NavControl
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier
+                    .fillMaxWidth(.25f)
+                    .fillMaxHeight(.25f), color = AppColor, strokeWidth = 8.dp)
+
             }
         }
         is DataState.Success -> {
@@ -48,6 +52,17 @@ fun SetData(viewModel: FinalResultShowFeatureViewModel,navController: NavControl
             ) {
                 Text(
                     text = result.message,
+                    fontSize = MaterialTheme.typography.h5.fontSize,
+                )
+            }
+        }
+        is DataState.Empty -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "You don't have any test result.",
                     fontSize = MaterialTheme.typography.h5.fontSize,
                 )
             }

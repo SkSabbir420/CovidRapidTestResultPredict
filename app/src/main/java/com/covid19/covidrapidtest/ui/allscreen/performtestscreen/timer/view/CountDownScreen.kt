@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.utils.Utility
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.utils.Utility.formatTime
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.view.components.CountDownButton
@@ -22,14 +23,14 @@ import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.view.comp
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.viewmodel.MainViewModel
 
 @Composable
-fun CountDownView(viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun CountDownView(viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),sharedViewModel: SharedViewModel) {
 
     val time by viewModel.time.observeAsState(Utility.TIME_COUNTDOWN.formatTime())
     val progress by viewModel.progress.observeAsState(1.00F)
     val isPlaying by viewModel.isPlaying.observeAsState(false)
     val celebrate by viewModel.celebrate.observeAsState(false)
 
-    CountDownView(time = time, progress = progress, isPlaying = isPlaying, celebrate = celebrate) {
+    CountDownView(time = time, progress = progress, isPlaying = isPlaying, celebrate = celebrate, name = sharedViewModel.publicFrom.nameValue) {
         viewModel.handleCountDownTimer()
     }
 }
@@ -37,10 +38,12 @@ fun CountDownView(viewModel: MainViewModel = androidx.lifecycle.viewmodel.compos
 @Composable
 fun CountDownView(
     time: String,
+    name:String,
     progress: Float,
     isPlaying: Boolean,
     celebrate: Boolean,
-    optionSelected: () -> Unit
+    optionSelected: () -> Unit,
+
 ) {
     var start by  remember {
         mutableStateOf(false)
@@ -55,7 +58,7 @@ fun CountDownView(
         }
 
         Text(
-            text = "\"Sabbir\" cassette result is ready to be sent in",
+            text = "\"$name\" cassette result is ready to be sent in",
             color = androidx.compose.ui.graphics.Color.White,
             fontSize = 25.sp,
             textAlign = TextAlign.Center,

@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.covid19.covidrapidtest.ui.allscreen.common.shareviewmodel.SharedViewModel
 import com.covid19.covidrapidtest.ui.allscreen.performtestscreen.timer.view.CountDownView
 import com.covid19.covidrapidtest.ui.navigation.BottomBarScreen
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
-fun TimerScreen(navController: NavHostController) {
+fun TimerScreen(navController: NavHostController,sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier
             .background(AppColor)
@@ -35,7 +36,7 @@ fun TimerScreen(navController: NavHostController) {
                 contentDescription = null,
                 tint = Color.White)
         }
-        CountDownView()
+        CountDownView(sharedViewModel = sharedViewModel)
     }
 
 }
