@@ -1,7 +1,9 @@
 package com.covid19.covidrapidtest.ui.allscreen.ongoingtest
 
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.camera.core.impl.utils.ContextUtil.getBaseContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,10 +27,23 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.theme.AppColor
+import java.time.LocalDateTime
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TestList(SymptomFromData: OngoingSymptomFrom){
+fun TestList(symptomFromData: OngoingSymptomFrom){
+
+    val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
+    val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
+    val result = fromCreateTime.isBefore(currentTimeMinus15)
+//    if(result){
+//        println(result)
+//    }else{
+//        println("fromCreateTime.minute - currentTimeMinus15.minute")
+//    }
+
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,34 +51,40 @@ fun TestList(SymptomFromData: OngoingSymptomFrom){
             .clip(RoundedCornerShape(12.dp))
             .background(AppColor)
             .clickable {
-                Log.d("GetKey", SymptomFromData.nodeUniqueKey)
+                Log.d("GetKey", symptomFromData.nodeUniqueKey)
             },
         verticalAlignment = Alignment.CenterVertically
 
     ) {
         val context = LocalContext.current
-        Text(text = SymptomFromData.nameValue , modifier = Modifier.padding(16.dp), color = Color.White)
+        Text(text = symptomFromData.nameValue , modifier = Modifier.padding(16.dp), color = Color.White)
         Spacer(modifier = Modifier.weight(1.0f))
+        if (result){
         Button(colors = ButtonDefaults.buttonColors(
             containerColor = Green
         ),
             onClick = {
-
-                val intent = Intent(context, TestCaptureActivity::class.java)
-                intent.putExtra("nodeUniqueKey", SymptomFromData.nodeUniqueKey)
-                context.startActivity(intent)
+                    val intent = Intent(context, TestCaptureActivity::class.java)
+                    intent.putExtra("nodeUniqueKey", symptomFromData.nodeUniqueKey)
+                    context.startActivity(intent)
                 //context.startActivity(Intent(context,TestCaptureActivity::class.java))
 
         }
         ) {
             Text(text = "take picture", color = Color.White)
         }
-        Icon(
-            tint = Color.White,
-            modifier = Modifier.padding(16.dp),
-            imageVector = Icons.Outlined.CheckCircle,
-            contentDescription =""
-        )
+            Icon(
+                tint = Color.White,
+                modifier = Modifier.padding(16.dp),
+                imageVector = Icons.Outlined.CheckCircle,
+                contentDescription =""
+            )
+        }else{
+            Text(text = "left ${fromCreateTime.minute - currentTimeMinus15.minute} minute", color = Color.White,
+            modifier = Modifier.padding(16.dp))
+        }
+
+
     }
 }
 

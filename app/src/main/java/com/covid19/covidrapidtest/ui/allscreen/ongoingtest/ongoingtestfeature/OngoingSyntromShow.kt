@@ -14,6 +14,7 @@ import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.viewmodels.OngoingSyntromShowViewModel
+import java.time.LocalDateTime
 
 
 @Composable
@@ -69,7 +70,15 @@ fun SetData(viewModel: OngoingSyntromShowViewModel) {
 fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>) {
     LazyColumn {
         items(SymptomFromDatas) { symptomFromData ->
-            TestList(SymptomFromData = symptomFromData)
+
+            TestList(symptomFromData = symptomFromData)
+
+//            val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
+//            val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
+//            if(fromCreateTime.isBefore(currentTimeMinus15)){
+//                TestList(SymptomFromData = symptomFromData)
+//            }
+
         }
     }
 }
