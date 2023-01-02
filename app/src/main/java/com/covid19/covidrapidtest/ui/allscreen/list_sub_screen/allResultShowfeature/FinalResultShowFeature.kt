@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.TestListSee
-import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
 
@@ -70,7 +70,11 @@ fun SetData(viewModel: FinalResultShowFeatureViewModel,navController: NavControl
 fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>,navController: NavController) {
     LazyColumn {
         items(SymptomFromDatas) { symptomFromData ->
-            TestListSee(SymptomFromData = symptomFromData, navController = navController)
+            TestListSee(symptomFromData = symptomFromData, navController = navController)
+            if (symptomFromData == SymptomFromDatas[SymptomFromDatas.size-1] ){
+                Spacer(modifier = Modifier.height(80.dp))
+            }
+
         }
     }
 }

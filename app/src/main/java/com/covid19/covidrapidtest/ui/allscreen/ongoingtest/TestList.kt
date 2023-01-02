@@ -30,13 +30,13 @@ import com.covid19.covidrapidtest.ui.theme.AppColor
 import java.time.LocalDateTime
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TestList(symptomFromData: OngoingSymptomFrom){
 
     val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
     val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
     val result = fromCreateTime.isBefore(currentTimeMinus15)
+
 //    if(result){
 //        println(result)
 //    }else{

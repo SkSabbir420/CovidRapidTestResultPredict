@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.sealed.DataState
@@ -72,6 +73,9 @@ fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>) {
         items(SymptomFromDatas) { symptomFromData ->
 
             TestList(symptomFromData = symptomFromData)
+            if (symptomFromData == SymptomFromDatas[SymptomFromDatas.size-1] ){
+                Spacer(modifier = Modifier.height(80.dp))
+            }
 
 //            val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
 //            val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
