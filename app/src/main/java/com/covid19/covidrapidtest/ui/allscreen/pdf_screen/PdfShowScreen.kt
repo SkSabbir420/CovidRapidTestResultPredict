@@ -174,7 +174,6 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
                                 document.add(image2)
                                 document.close()
                                 Log.d("PdfStatus", "Your pdf created")
-                                    Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
 
 //                                val imgFile = File("/storage/emulated/0/Pictures/region_.jpg")
 //                                if (imgFile.exists()) {
@@ -186,6 +185,7 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
 //                                val intent = Intent(Intent.ACTION_VIEW,MediaStore.Downloads.EXTERNAL_CONTENT_URI)
 //                                intent.setType("application/pdf")
                             }
+                                Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
 
                             }
                     }) {
