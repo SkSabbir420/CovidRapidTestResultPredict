@@ -1,6 +1,8 @@
 package com.covid19.covidrapidtest.ui.allscreen.pdf_screen
 
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
@@ -30,6 +32,7 @@ import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.mo
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.CovidRapidTestTheme
 import com.itextpdf.barcodes.BarcodeQRCode
+import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
@@ -40,6 +43,9 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.properties.HorizontalAlignment
 import com.itextpdf.layout.properties.TextAlignment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -80,6 +86,7 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
                 },
 
                 actions = {
+                    val context = LocalContext.current
                     IconButton(
                         modifier = Modifier
                             .height(35.dp)
@@ -88,58 +95,86 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
                         //navController.navigate(Screen.ActionButtonScreen.route)
 
                             if (ongoingSymptomFrom != null) {
+                                GlobalScope.launch {
 
-                            val path = Environment.getExternalStoragePublicDirectory(
-                                Environment.DIRECTORY_PICTURES
-                            )
-                            val imageFileName = "myPdf.pdf"
-                            val file = File(path, imageFileName)
+                                val path = Environment.getExternalStoragePublicDirectory(
+                                    Environment.DIRECTORY_PICTURES
+                                )
+                                val imageFileName = "myPdf.pdf"
+                                val file = File(path, imageFileName)
 
-                            val writer = PdfWriter(file)
-                            val pdfDocument = PdfDocument(writer)
-                            val document = Document(pdfDocument)
+                                val writer = PdfWriter(file)
+                                val pdfDocument = PdfDocument(writer)
+                                val document = Document(pdfDocument)
 
-                            val table = Table(2)
-                            table.setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                val bitmap = BitmapFactory.decodeResource(
+                                    context.resources,
+                                    R.drawable.image_logo_ar
+                                )
+                                val stream = ByteArrayOutputStream()
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                                val bitmapData = stream.toByteArray()
+                                val imageData = ImageDataFactory.create(bitmapData)
+                                val image = Image(imageData)
+                                    val space = Paragraph("\n\n").setTextAlignment(TextAlignment.CENTER)
 
-                            table.addCell( Cell().add(Paragraph("Test Result")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.testResult)))
+                                val table = Table(2)
+                                table.setHorizontalAlignment(HorizontalAlignment.CENTER)
 
-                            table.addCell( Cell().add(Paragraph("Test Date")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.createTime)))
+                                table.addCell(Cell().add(Paragraph("Test Result")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.testResult)))
 
-                            table.addCell( Cell().add(Paragraph("Full Name")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.nameValue)))
+                                table.addCell(Cell().add(Paragraph("Test Date")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.createTime)))
 
-                            table.addCell( Cell().add(Paragraph("Age")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.birthValue)))
+                                table.addCell(Cell().add(Paragraph("Full Name")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nameValue)))
 
-                            table.addCell( Cell().add(Paragraph("Gender")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.sexValue)))
+                                table.addCell(Cell().add(Paragraph("Age")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.birthValue)))
 
-                            table.addCell( Cell().add(Paragraph("Product")))
-                            table.addCell( Cell().add(Paragraph("RapidFor TM SARS-CoV-2 Rapid Antigen Test")))
+                                table.addCell(Cell().add(Paragraph("Gender")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.sexValue)))
 
-                            table.addCell( Cell().add(Paragraph("LOT")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.lotNumber)))
+                                table.addCell(Cell().add(Paragraph("Product")))
+                                table.addCell(Cell().add(Paragraph("RapidFor TM SARS-CoV-2 Rapid Antigen Test")))
 
-                            table.addCell( Cell().add(Paragraph("Manufacture")))
-                            table.addCell( Cell().add(Paragraph("Vitrosens Biyoteknoloji Ltd.Sti")))
+                                table.addCell(Cell().add(Paragraph("LOT")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.lotNumber)))
 
-                            table.addCell( Cell().add(Paragraph("Test Number")))
-                            table.addCell( Cell().add(Paragraph(ongoingSymptomFrom!!.nodeUniqueKey)))
+                                table.addCell(Cell().add(Paragraph("Manufacture")))
+                                table.addCell(Cell().add(Paragraph("Vitrosens Biyoteknoloji Ltd.Sti")))
 
-                            val para = Paragraph("QR Code of Unique Test").setTextAlignment(TextAlignment.CENTER)
+                                table.addCell(Cell().add(Paragraph("Test Number")))
+                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nodeUniqueKey)))
 
-                            val qrCode = BarcodeQRCode(ongoingSymptomFrom!!.nodeUniqueKey)
-                            val qrcodeObject = qrCode.createFormXObject(ColorConstants.BLACK,pdfDocument)
-                            val qrCodeImage = Image(qrcodeObject).setWidth(80f).setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                val para = Paragraph("QR Code of Unique Test").setTextAlignment(TextAlignment.CENTER)
 
-                            document.add(table)
-                            document.add(para)
-                            document.add(qrCodeImage)
-                            document.close()
-                            Log.d("PdfStatus", "Your pdf created")
+                                val qrCode = BarcodeQRCode(ongoingSymptomFrom!!.nodeUniqueKey)
+                                val qrcodeObject =
+                                    qrCode.createFormXObject(ColorConstants.BLACK, pdfDocument)
+                                val qrCodeImage = Image(qrcodeObject).setWidth(80f)
+                                    .setHorizontalAlignment(HorizontalAlignment.CENTER)
+
+
+                                val imageData2 =
+                                    ImageDataFactory.create(ongoingSymptomFrom!!.testResultImageUrl)
+                                val image2 = Image(imageData2)
+                                    image2.setHeight(80f).setWidth(80f)
+                                    image2.setHorizontalAlignment(HorizontalAlignment.CENTER)
+
+
+
+                                document.add(image)
+                                document.add(space)
+                                document.add(table)
+                                    document.add(space)
+                                document.add(para)
+                                document.add(qrCodeImage)
+                                document.add(image2)
+                                document.close()
+                                Log.d("PdfStatus", "Your pdf created")
+                                    Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
 
 //                                val imgFile = File("/storage/emulated/0/Pictures/region_.jpg")
 //                                if (imgFile.exists()) {
@@ -150,6 +185,7 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
 //                                //File("/storage/emulated/0/Pictures/region_.jpg")
 //                                val intent = Intent(Intent.ACTION_VIEW,MediaStore.Downloads.EXTERNAL_CONTENT_URI)
 //                                intent.setType("application/pdf")
+                            }
 
                             }
                     }) {
