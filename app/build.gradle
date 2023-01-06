@@ -173,4 +173,13 @@ dependencies {
 
     //status bar color change
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
+
+    //camera x
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.1"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.1"
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 }

@@ -79,6 +79,10 @@ fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>,navController
 //        }
 //    }
 
-    PdfContentScreen(SymptomFromDatas.first())
+    if (SymptomFromDatas.size > 0 ){
+        PdfContentScreen(SymptomFromDatas.first())
+    }
+
+
 }
 
