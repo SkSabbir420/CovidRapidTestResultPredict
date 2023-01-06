@@ -108,7 +108,7 @@ class ImageFragment : Fragment() {
             tflite = Interpreter(loadmodelfile(context as Activity))
         } catch (e: Exception) {
             //e.printStackTrace();
-            Toast.makeText(context, "Dont load model!!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Dont load model!!", Toast.LENGTH_SHORT).show()
         }
         val imgFile = File("/storage/emulated/0/Pictures/region_.jpg")
         curFile = Uri.fromFile(imgFile)
@@ -197,8 +197,7 @@ class ImageFragment : Fragment() {
                         }
 
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(context, "Successfully uploaded image",
-                                Toast.LENGTH_LONG).show()
+                            //Toast.makeText(context, "Successfully uploaded image", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -236,7 +235,7 @@ class ImageFragment : Fragment() {
             //labels = FileUtil.loadLabels(this, "label.txt")
 //            labels = FileUtil.loadLabels(this, "newdict.txt")
         }catch (e: Exception) {
-            Toast.makeText(context, "testtext not work", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "testtext not work", Toast.LENGTH_SHORT).show()
         }
 
         try {
@@ -251,12 +250,12 @@ class ImageFragment : Fragment() {
                     //classitext!!.text = key
                     classify = key
                     //createQrCode(key)
-                    Toast.makeText(context, key + "", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, key + "", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: Exception) {
             //Toast.makeText(this, "show 2nd part not work!!", Toast.LENGTH_SHORT).show()
-            Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "$e", Toast.LENGTH_SHORT).show()
             Log.d("MainActiviy",e.toString())
         }
         return classify!!

@@ -2,6 +2,7 @@ package com.covid19.covidrapidtest.ui.allscreen.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -19,6 +20,7 @@ import androidx.navigation.NavController
 import com.covid19.covidrapidtest.ui.navigation.Screen
 import com.covid19.covidrapidtest.ui.theme.Purple40
 import com.covid19.covidrapidtest.R
+import com.covid19.covidrapidtest.ui.theme.AppColor
 
 @Composable
 fun HomeScreen(navController : NavController) {
@@ -112,28 +114,37 @@ fun HomeScreen(navController : NavController) {
                         modifier = Modifier
                             .padding(24.dp)
                             .clip(RoundedCornerShape(12.dp))
+                            .height(110.dp)
+                            .width(110.dp)
                             .background(Color.Black)
+                            .clickable {
+                                //navController.popBackStack()
+                                navController.navigate(Screen.QRCodeReaderActivity.route)
+                            },
+                        contentAlignment = Alignment.Center
                     ) {
                         Column(
                             modifier = Modifier.padding(8.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ){
-                            val context = LocalContext.current
-                            IconButton(
-                                modifier = Modifier
-                                    .height(80.dp)
-                                    .width(80.dp)
-                                ,
-                                onClick = {
-                                    //navController.navigate("CameraActivity")
-                                   // navController.navigate(Screen.CameraActivity.route)
-                                    //navController.popBackStack()
-                                    navController.navigate(Screen.QRCodeReaderActivity.route)
-                                    //navController.navigate(Screen.LotNumberScreen.route)
-                                    //context.startActivity(Intent(context,CameraActivity::class.java))
-
-                                }) {
+//                            val context = LocalContext.current
+//                            IconButton(
+//                                modifier = Modifier
+//                                    .height(80.dp)
+//                                    .width(80.dp)
+//                                ,
+//                                onClick = {
+//                                    //navController.navigate("CameraActivity")
+//                                   // navController.navigate(Screen.CameraActivity.route)
+//                                    //navController.popBackStack()
+//
+//                                    navController.navigate(Screen.QRCodeReaderActivity.route)
+//
+//                                    //navController.navigate(Screen.LotNumberScreen.route)
+//                                    //context.startActivity(Intent(context,CameraActivity::class.java))
+//
+//                                }) {
                                 Icon(
                                     tint = Color.White,
                                     painter = painterResource(
@@ -143,7 +154,7 @@ fun HomeScreen(navController : NavController) {
                                     contentDescription = null,
                                 )
                                 
-                            }
+                            //}
                             Text(
                                 color = Color.White,
                                 text = "Perform  Tests"
@@ -154,19 +165,25 @@ fun HomeScreen(navController : NavController) {
                     Box(modifier = Modifier
                         .padding(24.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Purple40)
+                        .height(110.dp)
+                        .width(110.dp)
+                        .background(AppColor)
+                        .clickable {
+                            navController.navigate(Screen.OnGoingTest.route)
+                        },
+                        contentAlignment = Alignment.Center
                     ){
                         Column (
                             modifier = Modifier.padding(8.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ){
-                            IconButton(modifier = Modifier
-                                .height(80.dp)
-                                .width(80.dp),
-                                onClick = {
-                                    navController.navigate(Screen.OnGoingTest.route)
-                                }) {
+//                            IconButton(modifier = Modifier
+//                                .height(80.dp)
+//                                .width(80.dp),
+//                                onClick = {
+//                                   // navController.navigate(Screen.OnGoingTest.route)
+//                                }) {
                                 Icon(
                                     tint = Color.White,
                                     painter = painterResource(
@@ -174,7 +191,7 @@ fun HomeScreen(navController : NavController) {
                                     ),
                                     contentDescription = null,
                                 )
-                            }
+                           // }
                             Text(
                                 color = Color.White,
                                 text = "Ongoing Tests"

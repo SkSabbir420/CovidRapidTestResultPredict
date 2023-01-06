@@ -2,6 +2,7 @@ package com.covid19.covidrapidtest.ui.allscreen.performtestscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -155,28 +156,37 @@ fun LotNumberScreen(navController: NavController,sharedViewModel: SharedViewMode
         Box(
             modifier = Modifier
                 .padding(24.dp)
+                .height(85.dp)
+                .width(85.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(AppColor)
+                .clickable {
+                    navController.popBackStack()
+                    navController.navigate(Screen.QRCodeReaderActivity.route)
+                },
+            contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier.padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ){
-                val context = LocalContext.current
-                androidx.compose.material.IconButton(
-                    modifier = Modifier
-                        .height(75.dp)
-                        .width(85.dp),
-                    onClick = {
-                        //navController.navigate("CameraActivity")
-                        // navController.navigate(Screen.CameraActivity.route)
-                        navController.popBackStack()
-                        navController.navigate(Screen.QRCodeReaderActivity.route)
-                        //navController.navigate(Screen.LotNumberScreen.route)
-                        //context.startActivity(Intent(context,CameraActivity::class.java))
-
-                    }) {
+//                val context = LocalContext.current
+//                androidx.compose.material.IconButton(
+//                    modifier = Modifier
+//                        .height(75.dp)
+//                        .width(85.dp),
+//                    onClick = {
+//                        //navController.navigate("CameraActivity")
+//                        // navController.navigate(Screen.CameraActivity.route)
+//
+//                       // navController.popBackStack()
+//                       // navController.navigate(Screen.QRCodeReaderActivity.route)
+//
+//                        //navController.navigate(Screen.LotNumberScreen.route)
+//                        //context.startActivity(Intent(context,CameraActivity::class.java))
+//
+//                    }) {
                     androidx.compose.material.Icon(
                         tint = Color.White,
                         painter = painterResource(
@@ -185,7 +195,7 @@ fun LotNumberScreen(navController: NavController,sharedViewModel: SharedViewMode
                         contentDescription = null,
                     )
 
-                }
+                //}
                 androidx.compose.material.Text(
                     color = Color.White,
                     text = "Scan QR"

@@ -1,15 +1,11 @@
 package com.covid19.covidrapidtest.ui.allscreen.pdf_screen
 
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
-import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -160,8 +156,8 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
                                 val imageData2 =
                                     ImageDataFactory.create(ongoingSymptomFrom!!.testResultImageUrl)
                                 val image2 = Image(imageData2)
-                                    image2.setHeight(80f).setWidth(80f)
-                                    image2.setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                image2.setHeight(80f).setWidth(80f)
+                                image2.setHorizontalAlignment(HorizontalAlignment.CENTER)
 
 
 
@@ -180,12 +176,20 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
 //                                    val bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath())
 //                                }
 
-                                //Toast.makeText(LocalContext,"",Toast.LENGTH_SHORT).show()
-//                                //File("/storage/emulated/0/Pictures/region_.jpg")
-//                                val intent = Intent(Intent.ACTION_VIEW,MediaStore.Downloads.EXTERNAL_CONTENT_URI)
-//                                intent.setType("application/pdf")
+                                //val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
+                                val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
+                                //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
+                                    val pdfURI = FileProvider.getUriForFile(context,
+                                        context.applicationContext.packageName + ".provider",
+                                        imgFile
+                                    )
+                                val intent = Intent(Intent.ACTION_VIEW,pdfURI)
+                                //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
+                                //intent.setDataAndType(Uri.fromFile(imgFile),"application/pdf")
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                context.startActivity(intent)
                             }
-                                Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
+                                //Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
 
                             }
                     }) {
