@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.covid19.covidrapidtest.ui.allscreen.common.fromobject.SymptomFrom
 import com.covid19.covidrapidtest.ui.allscreen.list_sub_screen.TestListSee
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.TestList
 import com.covid19.covidrapidtest.ui.allscreen.ongoingtest.ongoingtestfeature.models.OngoingSymptomFrom
@@ -20,17 +21,17 @@ import com.covid19.covidrapidtest.ui.theme.AppColor
 
 
 @Composable
-fun FinalResultShowInPdf(navController: NavController,key:String){
+fun FinalResultShowInPdf(navController: NavController,key:String,dataPass:(OngoingSymptomFrom)->Unit){
 
     val viewModel = FinalResultShowInPdfViewModel(LocalContext.current, key)
     Column {
-        SetData(viewModel,navController)
+        SetData(viewModel,navController,dataPass)
     }
 
 }
 
 @Composable
-fun SetData(viewModel: FinalResultShowInPdfViewModel,navController: NavController) {
+fun SetData(viewModel: FinalResultShowInPdfViewModel,navController: NavController,dataPass2:(OngoingSymptomFrom)->Unit) {
     when (val result = viewModel.response.value) {
         is DataState.Loading -> {
             Box(
@@ -43,7 +44,7 @@ fun SetData(viewModel: FinalResultShowInPdfViewModel,navController: NavControlle
             }
         }
         is DataState.Success -> {
-            ShowLazyList(result.data,navController)
+            ShowLazyList(result.data,navController,dataPass2)
         }
         is DataState.Failure -> {
             Box(
@@ -71,7 +72,7 @@ fun SetData(viewModel: FinalResultShowInPdfViewModel,navController: NavControlle
 }
 
 @Composable
-fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>,navController: NavController) {
+fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>,navController: NavController,dataPass3: (OngoingSymptomFrom) -> Unit) {
 //    LazyColumn {
 //        items(SymptomFromDatas) { symptomFromData ->
 //            //TestListSee(SymptomFromData = symptomFromData, navController = navController)
@@ -80,7 +81,10 @@ fun ShowLazyList(SymptomFromDatas: MutableList<OngoingSymptomFrom>,navController
 //    }
 
     if (SymptomFromDatas.size > 0 ){
+        dataPass3(SymptomFromDatas.first())
         PdfContentScreen(SymptomFromDatas.first())
+
+
     }
 
 

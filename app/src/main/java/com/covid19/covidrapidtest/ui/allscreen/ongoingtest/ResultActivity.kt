@@ -23,9 +23,10 @@ import com.covid19.covidrapidtest.ui.navigation.PdfNavGraph
 import com.covid19.covidrapidtest.ui.navigation.SetupNavGraph
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
+//import com.itextpdf.text.Document
+//import com.itextpdf.text.Paragraph
+//import com.itextpdf.text.pdf.PdfWriter
+
 //import com.theartofdev.edmodo.cropper.CropImage
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.FileUtil
@@ -278,7 +279,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun savePDF(data:String) {
+    /*private fun savePDF(data:String) {
         val mDoc = Document()
         val mFileName = SimpleDateFormat("yyyMMdd_HHmmss", Locale.getDefault())
             .format(System.currentTimeMillis())
@@ -296,6 +297,7 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this,"" + e.toString(),Toast.LENGTH_SHORT).show()
         }
     }
+    */
 
 
     private val preprocessNormalizeOp: TensorOperator
