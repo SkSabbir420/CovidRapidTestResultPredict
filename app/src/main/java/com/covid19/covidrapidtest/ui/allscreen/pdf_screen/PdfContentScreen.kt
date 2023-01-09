@@ -54,8 +54,11 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(text = "Our tests provide high accuracy however, you could not be sure totally. The virus load in your body could not be significant enough that the test detects, so you should have another test after 4-5 days. Do not forget maintain social distancing and avoid risky areas.")
-
+                if (symptomFromData.testResult == "Negative") {
+                    Text(text = "Our tests provide high accuracy however, you could not be sure totally. The virus load in your body could not be significant enough that the test detects, so you should have another test after 4-5 days. Do not forget maintain social distancing and avoid risky areas.")
+                }else {
+                    Text(text = "Get in touch with your healthcare provider and inform your situation. You should make further confirmation of COVID-19 infection by getting a polymerase chain reaction (PCR Test). If the infection is verified, you should isolate yourself and also follow the public health protocols of your local area.")
+                }
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
@@ -80,7 +83,7 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                         Text(text = "Full Name")
                     }
                     Row(modifier = Modifier.fillMaxWidth()){
-                        Text(text = "Sabbir")
+                        Text(text = symptomFromData.nameValue)
                     }
 
                 }
@@ -93,10 +96,10 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(modifier = Modifier.fillMaxWidth(.4f)){
-                        Text(text = "Age")
+                        Text(text = "Birth")
                     }
                     Row(modifier = Modifier.fillMaxWidth()){
-                        Text(text = "22")
+                        Text(text = symptomFromData.birthValue)
                     }
                 }
 
@@ -236,7 +239,7 @@ fun PdfContentScreen(symptomFromData: OngoingSymptomFrom) {
                     horizontalArrangement = Arrangement.Center
                 ) {
 
-                    Button(
+                    Button(enabled = false,
                         colors = ButtonDefaults.buttonColors(containerColor = AppColor),
                         modifier = Modifier.padding(8.dp),
                         onClick = {

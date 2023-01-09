@@ -32,13 +32,19 @@ import java.time.LocalDateTime
 
 @Composable
 fun TestList(symptomFromData: OngoingSymptomFrom){
+    //var result = true
 
-    val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
-    Log.d("VVVVV",currentTimeMinus15.toString())
-    val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime)
-    Log.d("VVVVV",fromCreateTime.toString())
-    val result = fromCreateTime.isBefore(currentTimeMinus15)
-    Log.d("VVVVV",result.toString())
+   // try{
+        val currentTimeMinus15 = LocalDateTime.now().minusMinutes(15)
+        //Log.d("VVVVV",currentTimeMinus15.toString())
+        val fromCreateTime = LocalDateTime.parse(symptomFromData.createTime) //Crase Here //TODO 2
+        //Log.d("VVVVV",fromCreateTime.toString())
+        val result = fromCreateTime.isBefore(currentTimeMinus15)
+        //Log.d("VVVVV",result.toString())
+    //}catch (e:Exception){
+
+   // }
+
 
 //    if(result){
 //        println(result)

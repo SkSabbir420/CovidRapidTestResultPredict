@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -90,108 +91,128 @@ fun PdfShowScreen(navController:NavController,backRoute:String,key:String?){
                         onClick = {
                         //navController.navigate(Screen.ActionButtonScreen.route)
 
-                            if (ongoingSymptomFrom != null) {
-                                GlobalScope.launch {
-
-                                val path = Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_PICTURES
-                                )
-                                val imageFileName = "myPdf.pdf"
-                                val file = File(path, imageFileName)
-
-                                val writer = PdfWriter(file)
-                                val pdfDocument = PdfDocument(writer)
-                                val document = Document(pdfDocument)
-
-                                val bitmap = BitmapFactory.decodeResource(
-                                    context.resources,
-                                    R.drawable.image_logo_ar
-                                )
-                                val stream = ByteArrayOutputStream()
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                                val bitmapData = stream.toByteArray()
-                                val imageData = ImageDataFactory.create(bitmapData)
-                                val image = Image(imageData)
-                                    val space = Paragraph("\n\n").setTextAlignment(TextAlignment.CENTER)
-
-                                val table = Table(2)
-                                table.setHorizontalAlignment(HorizontalAlignment.CENTER)
-
-                                table.addCell(Cell().add(Paragraph("Test Result")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.testResult)))
-
-                                table.addCell(Cell().add(Paragraph("Test Date")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.createTime)))
-
-                                table.addCell(Cell().add(Paragraph("Full Name")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nameValue)))
-
-                                table.addCell(Cell().add(Paragraph("Age")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.birthValue)))
-
-                                table.addCell(Cell().add(Paragraph("Gender")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.sexValue)))
-
-                                table.addCell(Cell().add(Paragraph("Product")))
-                                table.addCell(Cell().add(Paragraph("RapidFor TM SARS-CoV-2 Rapid Antigen Test")))
-
-                                table.addCell(Cell().add(Paragraph("LOT")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.lotNumber)))
-
-                                table.addCell(Cell().add(Paragraph("Manufacture")))
-                                table.addCell(Cell().add(Paragraph("Vitrosens Biyoteknoloji Ltd.Sti")))
-
-                                table.addCell(Cell().add(Paragraph("Test Number")))
-                                table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nodeUniqueKey)))
-
-                                val para = Paragraph("QR Code of Unique Test").setTextAlignment(TextAlignment.CENTER)
-
-                                val qrCode = BarcodeQRCode(ongoingSymptomFrom!!.nodeUniqueKey)
-                                val qrcodeObject =
-                                    qrCode.createFormXObject(ColorConstants.BLACK, pdfDocument)
-                                val qrCodeImage = Image(qrcodeObject).setWidth(80f)
-                                    .setHorizontalAlignment(HorizontalAlignment.CENTER)
 
 
-                                val imageData2 =
-                                    ImageDataFactory.create(ongoingSymptomFrom!!.testResultImageUrl)
-                                val image2 = Image(imageData2)
-                                image2.setHeight(80f).setWidth(80f)
-                                image2.setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                    if (ongoingSymptomFrom != null) {
+                                    GlobalScope.launch {
+                                        try {
+
+                                        val path = Environment.getExternalStoragePublicDirectory(
+                                            Environment.DIRECTORY_PICTURES
+                                        )
+                                        val imageFileName = "myPdf.pdf"
+                                        val file = File(path, imageFileName)
+
+                                        val writer = PdfWriter(file)
+                                        val pdfDocument = PdfDocument(writer)
+                                        val document = Document(pdfDocument)
+
+                                        val bitmap = BitmapFactory.decodeResource(
+                                            context.resources,
+                                            R.drawable.image_logo_ar
+                                        )
+                                        val stream = ByteArrayOutputStream()
+                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                                        val bitmapData = stream.toByteArray()
+                                        val imageData = ImageDataFactory.create(bitmapData)
+                                        val image = Image(imageData)
+                                        val space =
+                                            Paragraph("\n\n").setTextAlignment(TextAlignment.CENTER)
+
+                                        val table = Table(2)
+                                        table.setHorizontalAlignment(HorizontalAlignment.CENTER)
+
+                                        table.addCell(Cell().add(Paragraph("Test Result")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.testResult)))
+
+                                        table.addCell(Cell().add(Paragraph("Test Date")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.createTime)))
+
+                                        table.addCell(Cell().add(Paragraph("Full Name")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nameValue)))
+
+                                        table.addCell(Cell().add(Paragraph("Age")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.birthValue)))
+
+                                        table.addCell(Cell().add(Paragraph("Gender")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.sexValue)))
+
+                                        table.addCell(Cell().add(Paragraph("Product")))
+                                        table.addCell(Cell().add(Paragraph("RapidFor TM SARS-CoV-2 Rapid Antigen Test")))
+
+                                        table.addCell(Cell().add(Paragraph("LOT")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.lotNumber)))
+
+                                        table.addCell(Cell().add(Paragraph("Manufacture")))
+                                        table.addCell(Cell().add(Paragraph("Vitrosens Biyoteknoloji Ltd.Sti")))
+
+                                        table.addCell(Cell().add(Paragraph("Test Number")))
+                                        table.addCell(Cell().add(Paragraph(ongoingSymptomFrom!!.nodeUniqueKey)))
+
+                                        val para =
+                                            Paragraph("QR Code of Unique Test").setTextAlignment(
+                                                TextAlignment.CENTER
+                                            )
+
+                                        val qrCode =
+                                            BarcodeQRCode(ongoingSymptomFrom!!.nodeUniqueKey)
+                                        val qrcodeObject =
+                                            qrCode.createFormXObject(
+                                                ColorConstants.BLACK,
+                                                pdfDocument
+                                            )
+                                        val qrCodeImage = Image(qrcodeObject).setWidth(80f)
+                                            .setHorizontalAlignment(HorizontalAlignment.CENTER)
+
+
+                                        val imageData2 =
+                                            ImageDataFactory.create(ongoingSymptomFrom!!.testResultImageUrl)
+                                        val image2 = Image(imageData2)
+                                        image2.setHeight(80f).setWidth(80f)
+                                        image2.setHorizontalAlignment(HorizontalAlignment.CENTER)
 
 
 
-                                document.add(image)
-                                document.add(space)
-                                document.add(table)
-                                    document.add(space)
-                                document.add(para)
-                                document.add(qrCodeImage)
-                                document.add(image2)
-                                document.close()
-                                Log.d("PdfStatus", "Your pdf created")
+                                        document.add(image)
+                                        document.add(space)
+                                        document.add(table)
+                                        document.add(space)
+                                        document.add(para)
+                                        document.add(qrCodeImage)
+                                        document.add(image2)
+                                        document.close()
+                                        Log.d("PdfStatus", "Your pdf created")
 
 //                                val imgFile = File("/storage/emulated/0/Pictures/region_.jpg")
 //                                if (imgFile.exists()) {
 //                                    val bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath())
 //                                }
 
-                                //val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
-                                val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
-                                //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
-                                    val pdfURI = FileProvider.getUriForFile(context,
-                                        context.applicationContext.packageName + ".provider",
-                                        imgFile
-                                    )
-                                val intent = Intent(Intent.ACTION_VIEW,pdfURI)
-                                //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
-                                //intent.setDataAndType(Uri.fromFile(imgFile),"application/pdf")
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                context.startActivity(intent)
-                            }
-                                //Toast.makeText(context,"/storage/emulated/0/Pictures/myPdf.pdf",Toast.LENGTH_SHORT).show()
+                                        //val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
+                                        val imgFile = File("/storage/emulated/0/Pictures/myPdf.pdf")
+                                        //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
+                                        val pdfURI = FileProvider.getUriForFile(
+                                            context,
+                                            context.applicationContext.packageName + ".provider",
+                                            imgFile
+                                        )
+                                        val intent = Intent(Intent.ACTION_VIEW, pdfURI)
+                                        //val intent = Intent(Intent.ACTION_VIEW,Uri.fromFile(imgFile))
+                                        //intent.setDataAndType(Uri.fromFile(imgFile),"application/pdf")
+                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                        context.startActivity(intent)
+                                        }catch(e:Exception){
+                                            //TODO
+                                            //Toast.makeText(context,"You don't give Read and Write Permission",Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                }
 
-                            }
+
+
+
+
+
                     }) {
                         Image(
                             painter = painterResource(
